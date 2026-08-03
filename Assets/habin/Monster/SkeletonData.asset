@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1151f4c340d636248bd380f7e0794da9, type: 3}
   m_Name: SkeletonData
   m_EditorClassIdentifier: Assembly-CSharp::MonsterData
-  monsterId: 
-  monsterName: 
-  monsterMaxHp: 
-  monsterAttack: 
-  monsterDefense: 
-  monsterExp: 
+  monsterId: 001
+  monsterName: "\uC2A4\uCF08\uB808\uD1A4"
+  monsterMaxHp: 0
+  monsterAttack: 0
+  monsterBodyAttack: 0
+  monsterDefense: 0
+  monsterExp: 0
