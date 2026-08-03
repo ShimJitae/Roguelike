@@ -14,4 +14,20 @@ public class MonsterAnimationEvent : MonoBehaviour
             monsterMove.SpawnArrow();
         }
     }
+    public void spawnSword()
+    {
+        if (monsterMove != null)
+        {
+            monsterMove.SpawnSword();
+        }
+
+    }
+    public void RemoveSword()
+    {
+        if (monsterMove != null)
+        {
+            monsterMove.RemoveSword();
+        }
+
+    }
 }

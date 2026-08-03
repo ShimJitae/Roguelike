@@ -7,9 +7,10 @@ public class MonsterMove : MonoBehaviour
     private Rigidbody2D rb;
     private Animator an;
     private CharacterAnimController ancon;
+    private SwordAttack swordAttack;
     [SerializeField] private MonsterData monsterData;
-
     [SerializeField] private Transform AttackField;
+
     [Header("이동 및 감지")]
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] public Transform player;
@@ -20,12 +21,13 @@ public class MonsterMove : MonoBehaviour
 
     [SerializeField] private float attackCooldown = 2f;
     [Header("근접 공격")]
+    [SerializeField] private GameObject swordObject;
     [Header("원거리 공격")]
     [SerializeField] private GameObject arrowObject;
     [SerializeField] private float arrowSpeed;
-    private float nextAttackTime {  get; set; }
+    private float nextAttackTime { get; set; }
 
-    private int currentIndex = 0; 
+    private int currentIndex = 0;
     private int moveDirection = 1;
     private void Awake()
     {
@@ -33,6 +35,7 @@ public class MonsterMove : MonoBehaviour
         ancon = GetComponent<CharacterAnimController>();
         Transform unitRoot = transform.Find("UnitRoot");
         an = unitRoot.GetComponent<Animator>();
+        swordAttack = GetComponent<SwordAttack>();
 
     }
 
@@ -64,7 +67,7 @@ public class MonsterMove : MonoBehaviour
         //이동지점 확인
         Transform targetPoint = movePoints[currentIndex];
         //이동지점으로 이동
-        Vector2 direction =((Vector2)targetPoint.position - rb.position).normalized;
+        Vector2 direction = ((Vector2)targetPoint.position - rb.position).normalized;
         rb.linearVelocity = direction * moveSpeed;
         an.SetFloat("IsSpeed", direction.magnitude);
         float distance = Vector2.Distance(rb.position, targetPoint.position);
@@ -73,7 +76,7 @@ public class MonsterMove : MonoBehaviour
             ChangeTargetPoint();
         }
         MonsterFlip();
-        
+
     }
 
 
@@ -86,34 +89,40 @@ public class MonsterMove : MonoBehaviour
         }
         else if (monsterData.AttackType == MonsterAttackType.melee)
         {
-            ancon.PlayAttack(); 
+            ancon.PlayAttack();
         }
     }
+    public void SpawnSword()
+    {
+        swordObject.SetActive(true);
 
+
+    }
+    public void RemoveSword()
+    {
+        swordObject.SetActive(false);
+
+    }
     public void SpawnArrow()
     {
-        
-        
-            GameObject arrow = Instantiate(arrowObject, AttackField.position, Quaternion.identity);
-            Rigidbody2D arrowRb = arrow.GetComponent<Rigidbody2D>();
-            if (AttackField.localPosition.x == -0.5f)
-            {
-                arrowRb.linearVelocity = -AttackField.right * arrowSpeed;
-            }
-            else if (AttackField.localPosition.x == 0.5f)
-            {
-                arrowRb.linearVelocity = AttackField.right * arrowSpeed;
-            }
-        
-
+        GameObject arrow = Instantiate(arrowObject, AttackField.position, Quaternion.identity);
+        Rigidbody2D arrowRb = arrow.GetComponent<Rigidbody2D>();
+        if (AttackField.localPosition.x == -0.5f)
+        {
+            arrowRb.linearVelocity = -AttackField.right * arrowSpeed;
+        }
+        else if (AttackField.localPosition.x == 0.5f)
+        {
+            arrowRb.linearVelocity = AttackField.right * arrowSpeed;
+        }
     }
     private void TrackingPlayer()
     {
         Vector2 direction = (player.position - transform.position).normalized;
         rb.linearVelocity = direction * moveSpeed;
-        if(player.position.x < transform.position.x)
+        if (player.position.x < transform.position.x)
         {
-           Transform unitRoot = transform.Find("UnitRoot");
+            Transform unitRoot = transform.Find("UnitRoot");
             unitRoot.localScale = new Vector3(1, 1, 1);
             AttackField.localPosition = new Vector3(-0.5f, 0.2f);
         }
