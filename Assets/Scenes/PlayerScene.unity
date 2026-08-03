@@ -171,6 +171,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Test
       objectReference: {fileID: 0}
+    - target: {fileID: 5960958940931188971, guid: 7ef08d03446d48143be855d1bbbcedc0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -736,15 +740,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4603646249391099107, guid: bfe2e99d93d31a247b8fd55ac0d84518, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.25
+      value: -1.908
       objectReference: {fileID: 0}
     - target: {fileID: 4603646249391099107, guid: bfe2e99d93d31a247b8fd55ac0d84518, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.01
+      value: -0.059
       objectReference: {fileID: 0}
     - target: {fileID: 4603646249391099107, guid: bfe2e99d93d31a247b8fd55ac0d84518, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.06
+      value: 0.124
       objectReference: {fileID: 0}
     - target: {fileID: 4603646249391099107, guid: bfe2e99d93d31a247b8fd55ac0d84518, type: 3}
       propertyPath: m_LocalRotation.w
@@ -796,7 +800,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5960958940931188971, guid: bfe2e99d93d31a247b8fd55ac0d84518, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5960958940931188971, guid: bfe2e99d93d31a247b8fd55ac0d84518, type: 3}
       propertyPath: m_TagString
@@ -826,6 +830,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5960958940931188971, guid: bfe2e99d93d31a247b8fd55ac0d84518, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1195178724}
+    - targetCorrespondingSourceObject: {fileID: 5960958940931188971, guid: bfe2e99d93d31a247b8fd55ac0d84518, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1195178725}
   m_SourcePrefab: {fileID: 100100000, guid: bfe2e99d93d31a247b8fd55ac0d84518, type: 3}
 --- !u!1 &1195178718 stripped
 GameObject:
@@ -940,9 +947,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   childTransform: {fileID: 0}
   rb: {fileID: 0}
-  jumpPower: 10
+  jumpPower: 4
   walkSpeed: 5
   runSpeed: 0
+--- !u!114 &1195178725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1195178718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 753b98ea641ae914595d4b84ccdcf047, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Collision
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  onGround: 0
+  onWall: 0
+  onRightWall: 0
+  onLeftWall: 0
+  wallSide: 0
+  collisionRadius: 0.1
+  bottomOffset: {x: 0, y: -0.05}
+  rightOffset: {x: 0.31, y: 0.35}
+  leftOffset: {x: -0.31, y: 0.35}
 --- !u!1 &1238177185
 GameObject:
   m_ObjectHideFlags: 0
