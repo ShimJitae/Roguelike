@@ -12,6 +12,11 @@ public class PlayerController : MonoBehaviour
     private PlayerAnim anim;
 
     [SerializeField] private float jumpPower;
+    [SerializeField] float fallMultiplier = 2.5f;
+    [SerializeField] float lowJumpMultiplier = 2f;
+    [SerializeField] private bool isPressedJump;
+
+
     [SerializeField] private float walkSpeed;
     [SerializeField] private float runSpeed;
 
@@ -62,17 +67,38 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputValue value)
     {
+        isPressedJump = value.isPressed;
 
-        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower);
+        Debug.Log($"Jump Pressed : {isPressedJump}");
+        if (coll.onGround)
+        {
+            // 수평 속도는 유지, 수직만 초기화 후 점프
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
+            rb.linearVelocity += Vector2.up * jumpPower;
+        }
+
+        //rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower);
+
     }
-
-    void Update()
+    void BetterJump()
     {
-        Move();
+        if (rb.linearVelocityY < 0f)
+            rb.gravityScale = fallMultiplier;
+        else if (rb.linearVelocityY > 0f && !isPressedJump)
+            rb.gravityScale = lowJumpMultiplier;
+        else
+            rb.gravityScale = 1f;
     }
 
     void Move()
     {
         rb.linearVelocity = new Vector2(moveInput.x * walkSpeed, rb.linearVelocity.y);
     }
+
+    private void FixedUpdate()
+    {
+        Move();
+        BetterJump();
+    }
+    
 }

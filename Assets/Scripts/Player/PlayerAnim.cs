@@ -103,4 +103,7 @@ public class PlayerAnim : MonoBehaviour
 
     }
 
+
+    //TODO 사망시 애니메이션 추가해야함 (피격시는 일단 스프라이트 색 반짝이기 정도로 할까 생각중)
+
 }
