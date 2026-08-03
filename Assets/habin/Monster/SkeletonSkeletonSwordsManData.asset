@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1151f4c340d636248bd380f7e0794da9, type: 3}
-  m_Name: SkeletonData
+  m_Name: SkeletonSkeletonSwordsManData
   m_EditorClassIdentifier: Assembly-CSharp::MonsterData
   monsterId: 001
-  monsterName: "\uC2A4\uCF08\uB808\uD1A4"
-  monsterMaxHp: 0
-  monsterAttack: 0
-  monsterBodyAttack: 0
+  monsterName: "\uC2A4\uCF08\uB808\uD1A4\uC18C\uB4DC\uB9E8"
+  monsterMaxHp: 100
+  monsterAttack: 20
+  monsterBodyAttack: 10
   monsterDefense: 0
-  monsterExp: 0
+  monsterExp: 20
