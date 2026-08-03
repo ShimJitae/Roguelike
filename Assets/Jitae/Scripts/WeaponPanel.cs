@@ -1,139 +1,152 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class WeaponPanel : MonoBehaviour
+public sealed class WeaponPanel : MonoBehaviour
 {
-    // 각 무기의 슬롯
+    private const float MinimumDuration = 0.08f;
+    private const float PositionEpsilon = 0.001f;
+
     [Header("Slots")]
     [SerializeField] private RectTransform slot1;
     [SerializeField] private RectTransform slot2;
 
-    // 무기가 스왑되는 애니메이션
     [Header("Animation")]
-    [SerializeField, Min(0.01f)]
-    private float swapDuration = 0.35f;
+    [SerializeField, Min(0.01f)] private float swapDuration = 0.35f;
+    [SerializeField] private float arcHeight = 20f;
+    [SerializeField] private bool ignoreTimeScale;
 
-    // 두 슬롯이 겹치지 않게 휘어지는 정도
-    [SerializeField]
-    private float arcHeight = 20f;
-
-    // 일시정지 상태에서도 교체 애니메이션을 실행할지
-    [SerializeField]
-    private bool ignoreTimeScale = false;
-
-    private Vector2 slot1StartPosition;
-    private Vector2 slot2StartPosition;
-
-    private Sequence swapSequence;
-
+    private Vector2 slot1Position;
+    private Vector2 slot2Position;
+    private Tween swapTween;
     private bool isSwapped;
-    // 사용자가 마지막으로 요청한 상태
-    private bool targetSwapped;
+    private bool isInitialized;
 
     private void Awake()
     {
-        slot1StartPosition = slot1.anchoredPosition;
-        slot2StartPosition = slot2.anchoredPosition;
+        if (slot1 == null || slot2 == null)
+        {
+            Debug.LogError("WeaponPanel: Slot references are not assigned.", this);
+            enabled = false;
+            return;
+        }
+
+        slot1Position = slot1.anchoredPosition;
+        slot2Position = slot2.anchoredPosition;
+        isInitialized = true;
+
+        ApplyState(false);
     }
 
+    [ContextMenu("Test Swap Equipment")]
     public void SwapEquipment()
     {
-        // 입력할 때마다 목표 상태를 즉시 반전
-        targetSwapped = !targetSwapped;
+        if (!isInitialized)
+        {
+            return;
+        }
 
-        // 이전 애니메이션은 현재 위치에서 중단
-        swapSequence?.Kill();
+        isSwapped = !isSwapped;
+        KillSwapTween();
 
-        Vector2 slot1From = slot1.anchoredPosition;
-        Vector2 slot2From = slot2.anchoredPosition;
+        Vector2 slot1Start = slot1.anchoredPosition;
+        Vector2 slot2Start = slot2.anchoredPosition;
+        Vector2 slot1End = isSwapped ? slot2Position : slot1Position;
+        Vector2 slot2End = isSwapped ? slot1Position : slot2Position;
 
-        Vector2 slot1Target = targetSwapped
-            ? slot2StartPosition
-            : slot1StartPosition;
+        float fullDistance = Vector2.Distance(slot1Position, slot2Position);
+        float remainingDistance = Mathf.Max(
+            Vector2.Distance(slot1Start, slot1End),
+            Vector2.Distance(slot2Start, slot2End));
 
-        Vector2 slot2Target = targetSwapped
-            ? slot1StartPosition
-            : slot2StartPosition;
+        if (fullDistance <= PositionEpsilon || remainingDistance <= PositionEpsilon)
+        {
+            ApplyState(isSwapped);
+            return;
+        }
 
-        // 남은 거리에 따라 재생 시간 조절
-        float fullDistance = Vector2.Distance(slot1StartPosition, slot2StartPosition);
+        float distanceRatio = Mathf.Clamp01(remainingDistance / fullDistance);
+        float duration = Mathf.Max(MinimumDuration, swapDuration * distanceRatio);
+        float height = arcHeight * distanceRatio;
 
-        float remainingDistance = Vector2.Distance(slot1From, slot1Target);
+        Vector2 slot1Control = GetArcControlPoint(slot1Start, slot1End, height);
+        Vector2 slot2Control = GetArcControlPoint(slot2Start, slot2End, height);
 
-        float distanceRatio = remainingDistance / Mathf.Max(fullDistance, 0.001f);
+        // DOVirtual tweens should not be nested in a Sequence.
+        // One progress tween updates both slots together instead.
+        swapTween = DOVirtual.Float(0f, 1f, duration, progress =>
+            {
+                slot1.anchoredPosition = GetBezierPoint(
+                    slot1Start,
+                    slot1Control,
+                    slot1End,
+                    progress);
 
-        float currentDuration = Mathf.Max(0.08f, swapDuration * distanceRatio);
+                slot2.anchoredPosition = GetBezierPoint(
+                    slot2Start,
+                    slot2Control,
+                    slot2End,
+                    progress);
+            })
+            .SetEase(Ease.InOutSine)
+            .SetUpdate(UpdateType.Normal, ignoreTimeScale)
+            .SetTarget(this)
+            .SetAutoKill(true)
+            .OnComplete(() => ApplyState(isSwapped))
+            .OnKill(() => swapTween = null);
+    }
 
-        Vector2 middle = (slot1From + slot1Target) * 0.5f;
+    private void ApplyState(bool swapped)
+    {
+        slot1.anchoredPosition = swapped ? slot2Position : slot1Position;
+        slot2.anchoredPosition = swapped ? slot1Position : slot2Position;
 
-        Vector2 direction = slot1Target - slot1From;
+        if (swapped)
+        {
+            slot2.SetAsLastSibling();
+        }
+        else
+        {
+            slot1.SetAsLastSibling();
+        }
+    }
+
+    private void KillSwapTween()
+    {
+        swapTween?.Kill();
+        swapTween = null;
+    }
+
+    private static Vector2 GetArcControlPoint(
+        Vector2 start,
+        Vector2 end,
+        float height)
+    {
+        Vector2 direction = end - start;
         Vector2 perpendicular = new Vector2(-direction.y, direction.x).normalized;
 
-        float currentArcHeight = arcHeight * distanceRatio;
-
-        Vector2 slot1Control = middle + perpendicular * currentArcHeight;
-
-        Vector2 slot2Control = middle - perpendicular * currentArcHeight;
-
-        bool completedState = targetSwapped;
-
-        swapSequence = DOTween.Sequence();
-
-        swapSequence.Join(
-            CreateArcTween(slot1, slot1From, slot1Control, slot1Target, currentDuration)
-        );
-
-        swapSequence.Join(
-            CreateArcTween(slot2, slot2From, slot2Control, slot2Target, currentDuration)
-        );
-
-        swapSequence
-            .SetUpdate(ignoreTimeScale)
-            .OnComplete(() =>
-            {
-                slot1.anchoredPosition = slot1Target;
-                slot2.anchoredPosition = slot2Target;
-
-                isSwapped = completedState;
-                swapSequence = null;
-            });
+        return (start + end) * 0.5f + perpendicular * height;
     }
 
-    private Tween CreateArcTween(RectTransform target, Vector2 start, Vector2 control, Vector2 end, float duration)
+    private static Vector2 GetBezierPoint(
+        Vector2 start,
+        Vector2 control,
+        Vector2 end,
+        float progress)
     {
-        return DOVirtual.Float(
-                0f,
-                1f,
-                duration,
-                progress =>
-                {
-                    target.anchoredPosition = CalculateBezierPoint(start, control, end, progress);
-                })
-            .SetEase(Ease.InOutSine);
-    }
+        float inverse = 1f - progress;
 
-    // 2차 베지어 곡선
-    private static Vector2 CalculateBezierPoint(Vector2 start, Vector2 control, Vector2 end, float progress)
-    {
-        float reverse = 1f - progress;
-
-        return reverse * reverse * start
-             + 2f * reverse * progress * control
+        return inverse * inverse * start
+             + 2f * inverse * progress * control
              + progress * progress * end;
     }
 
     private void OnDisable()
     {
-        swapSequence?.Kill();
-        swapSequence = null;
+        KillSwapTween();
 
-        // 애니메이션 중 비활성화됐다면 원래 상태로 정렬
-        slot1.anchoredPosition = isSwapped
-            ? slot2StartPosition
-            : slot1StartPosition;
-
-        slot2.anchoredPosition = isSwapped
-            ? slot1StartPosition
-            : slot2StartPosition;
+        if (isInitialized)
+        {
+            ApplyState(isSwapped);
+        }
     }
 }
