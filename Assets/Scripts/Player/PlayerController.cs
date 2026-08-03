@@ -7,24 +7,23 @@ public class PlayerController : MonoBehaviour
      플레이어 컨트롤관련(이동, 공격, 점프)로직
         기본적으로 WASD 이동, X 공격, C 점프
      */
-    [SerializeField] private Transform childTransform;
     [SerializeField] private Rigidbody2D rb;
     private Collision coll;
-
-    private Vector2 moveInput;
-    private Vector3 flip;
+    private PlayerAnim anim;
 
     [SerializeField] private float jumpPower;
     [SerializeField] private float walkSpeed;
     [SerializeField] private float runSpeed;
 
+    public Vector2 moveInput { get; private set; }
+    public bool isFlip { get; private set; }
 
     private void Awake()
     {
-        childTransform = transform.GetChild(0);
         coll = GetComponent<Collision>();
+        anim = GetComponentInChildren<PlayerAnim>();
         rb = GetComponent<Rigidbody2D>();
-        flip = childTransform.localScale;
+        
     }
 
     void Start()
@@ -35,37 +34,36 @@ public class PlayerController : MonoBehaviour
     public void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
+        
 
         if (moveInput.x < 0)
         {
-            flip.x = 1.0f;
-            FlipX();
+            isFlip = false;
+            anim.Move();
+            
+            Debug.Log($"Flip: {isFlip}");
         }
-        else if (moveInput.x > 0)
+        else if(moveInput.x > 0)
         {
-            flip.x = -1.0f;
-            FlipX();
+            isFlip = true;
+            anim.Move();
+            Debug.Log($"Flip: {isFlip}");
         }
-
+        else
+        {
+            anim.Idle();
+        }
     }
 
     public void OnAttack(InputValue value)
     {
-
+        anim.Attack();
     }
 
     public void OnJump(InputValue value)
     {
-        if (value.isPressed)
-        {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower);
-        }
-    }
 
-    //TODO 이부분이 애니메이션 스크립트로 빠질수있음 현재는 자식 트랜스폼을 가져오는 형태
-    public void FlipX()
-    {
-        childTransform.localScale = flip;
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower);
     }
 
     void Update()
