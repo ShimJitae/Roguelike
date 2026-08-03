@@ -422,7 +422,7 @@ GameObject:
   - component: {fileID: 297243716}
   - component: {fileID: 297243718}
   m_Layer: 5
-  m_Name: Weapon_1
+  m_Name: Slot_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -500,7 +500,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponSlot
   weaponImage: {fileID: 0}
-  shadowImage: {fileID: 0}
+  shadowImage: {fileID: 383568911}
   weaponNameText: {fileID: 0}
 --- !u!1 &332394000
 GameObject:
@@ -1284,9 +1284,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponPanel
   slot1: {fileID: 297243715}
   slot2: {fileID: 1346407987}
-  swapDuration: 0.35
+  swapDuration: 0.85
   arcHeight: 20
-  ignoreTimeScale: 1
 --- !u!1 &1057003655
 GameObject:
   m_ObjectHideFlags: 0
@@ -2064,7 +2063,7 @@ GameObject:
   - component: {fileID: 1346407988}
   - component: {fileID: 1346407990}
   m_Layer: 5
-  m_Name: Weapon_2
+  m_Name: Slot_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2142,7 +2141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponSlot
   weaponImage: {fileID: 0}
-  shadowImage: {fileID: 0}
+  shadowImage: {fileID: 2051955151}
   weaponNameText: {fileID: 0}
 --- !u!224 &1419174682 stripped
 RectTransform:

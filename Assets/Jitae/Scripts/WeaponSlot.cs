@@ -8,5 +8,8 @@ public class WeaponSlot : MonoBehaviour
     [SerializeField] private Image shadowImage;
     [SerializeField] private TMP_Text weaponNameText;
 
-
+    public void ActiveShadow(bool active)
+    {
+        shadowImage.gameObject.SetActive(active);
+    }
 }
