@@ -74,15 +74,20 @@ public class MonsterMove : MonoBehaviour
         MonsterFlip();
         
     }
+
+
     private void PlayerAttack()
     {
         ancon.PlayAttack();
-        //몬스터 타입이 원거리이면
-        if(monsterData.AttackType == MonsterAttackType.ranged)
+        
+    }
+    public void SpawnArrow()
+    {
+        if (monsterData.AttackType == MonsterAttackType.ranged)
         {
-            GameObject arrow = Instantiate(arrowObject, AttackField.position,Quaternion.identity);
+            GameObject arrow = Instantiate(arrowObject, AttackField.position, Quaternion.identity);
             Rigidbody2D arrowRb = arrow.GetComponent<Rigidbody2D>();
-            if(AttackField.localPosition.x == -0.5f)
+            if (AttackField.localPosition.x == -0.5f)
             {
                 arrowRb.linearVelocity = -AttackField.right * arrowSpeed;
             }
@@ -91,6 +96,7 @@ public class MonsterMove : MonoBehaviour
                 arrowRb.linearVelocity = AttackField.right * arrowSpeed;
             }
         }
+
     }
     private void TrackingPlayer()
     {
