@@ -18,8 +18,9 @@ public class MonsterMove : MonoBehaviour
     [SerializeField] private float attackRange;
     [SerializeField] private float moveSpeed;
 
-    [Header("원거리 화살")]
     [SerializeField] private float attackCooldown = 2f;
+    [Header("근접 공격")]
+    [Header("원거리 공격")]
     [SerializeField] private GameObject arrowObject;
     [SerializeField] private float arrowSpeed;
     private float nextAttackTime {  get; set; }
@@ -78,13 +79,21 @@ public class MonsterMove : MonoBehaviour
 
     private void PlayerAttack()
     {
-        ancon.PlayAttack();
-        
-    }
-    public void SpawnArrow()
-    {
         if (monsterData.AttackType == MonsterAttackType.ranged)
         {
+            ancon.PlayAttackBow();
+            return;
+        }
+        else if (monsterData.AttackType == MonsterAttackType.melee)
+        {
+            ancon.PlayAttack(); 
+        }
+    }
+
+    public void SpawnArrow()
+    {
+        
+        
             GameObject arrow = Instantiate(arrowObject, AttackField.position, Quaternion.identity);
             Rigidbody2D arrowRb = arrow.GetComponent<Rigidbody2D>();
             if (AttackField.localPosition.x == -0.5f)
@@ -95,7 +104,7 @@ public class MonsterMove : MonoBehaviour
             {
                 arrowRb.linearVelocity = AttackField.right * arrowSpeed;
             }
-        }
+        
 
     }
     private void TrackingPlayer()

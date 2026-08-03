@@ -6,6 +6,7 @@ public class CharacterAnimController : MonoBehaviour
     private static readonly int IdleHash = Animator.StringToHash("IDLE");
     private static readonly int moveHash = Animator.StringToHash("MOVE");
     private static readonly int AttackHash = Animator.StringToHash("ATTACK");
+    private static readonly int AttackBowHash = Animator.StringToHash("ATTACKBOW");
     private static readonly int DamagedHash = Animator.StringToHash("DAMAGED");
     private static readonly int DeathHash = Animator.StringToHash("DEATH");
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -25,6 +26,10 @@ public class CharacterAnimController : MonoBehaviour
     public void PlayAttack()
     {
         an.Play(AttackHash);
+    }
+    public void PlayAttackBow()
+    {
+        an.Play(AttackBowHash);
     }
     public void PlayDamaged()
     {
