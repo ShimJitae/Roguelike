@@ -1,0 +1,120 @@
+메서드 체이닝
+
+SetEase
+
+애니메이션의 가속과 감속 형태를 설정합니다.
+
+transform.DOMoveX(5f, 1f)
+    .SetEase(Ease.Linear);
+
+자주 사용하는 Ease는 다음과 같습니다.
+
+In이 끝날 때 힘 주기, Out이 시작할 때 힘 주기
+
+Ease.Linear
+Ease.InQuad
+Ease.OutQuad
+Ease.InOutQuad
+Ease.OutCubic
+Ease.OutBack
+Ease.OutBounce
+Ease.OutElastic
+
+SetLoops
+transform.DOMoveX(5f, 1f)
+    .SetLoops(3, LoopType.Yoyo);
+
+루프 타입은 다음과 같습니다.
+
+Restart: 종료 후 시작값으로 돌아가 다시 재생
+Yoyo: 정방향과 역방향을 반복
+Incremental: 반복할 때마다 변화량을 누적
+
+무한 반복은 루프 횟수에 -1을 사용합니다.
+
+콜백
+transform.DOMoveX(5f, 1f)
+    .OnStart(() => Debug.Log("최초 시작"))
+    .OnPlay(() => Debug.Log("재생"))
+    .OnUpdate(() => Debug.Log("매 프레임 갱신"))
+    .OnStepComplete(() => Debug.Log("한 루프 완료"))
+    .OnComplete(() => Debug.Log("전체 완료"))
+    .OnKill(() => Debug.Log("Tween 제거"));
+
+재사용 가능한 Tweener
+
+Tween은 기본적으로 완료되면 자동으로 제거되는 AutoKill 상태입니다. 따라서 완료된 Tweener를 Restart()로 재사용하려면 SetAutoKill(false)를 설정해야 합니다.
+
+
+Sequence
+Sequence란?
+
+Sequence는 여러 Tweener를 하나의 타임라인으로 구성합니다.
+
+예를 들어 다음과 같은 애니메이션을 만들 수 있습니다.
+
+오른쪽으로 이동
+이동이 끝나면 회전
+회전이 끝나면 크기 변경
+전체 애니메이션 완료 후 메서드 실행
+Sequence sequence = DOTween.Sequence();
+
+sequence.Append(transform.DOMoveX(5f, 1f));
+sequence.Append(transform.DORotate(new Vector3(0f, 180f, 0f), 0.5f));
+sequence.Append(transform.DOScale(Vector3.one * 2f, 0.5f));
+sequence.AppendCallback(() => Debug.Log("Sequence 완료"));
+
+Sequence 자체도 Tween이므로 다음처럼 제어할 수 있습니다.
+
+sequence.Play();
+sequence.Pause();
+sequence.Restart();
+sequence.Rewind();
+sequence.Kill();
+
+Sequence 핵심 메서드
+Append
+
+현재 Sequence의 마지막 지점에 Tween을 추가합니다.
+
+sequence.Append(transform.DOMoveX(5f, 1f));
+sequence.Append(transform.DOScale(Vector3.one * 2f, 0.5f));
+
+Join
+
+마지막으로 추가한 Tween과 같은 시점에 실행합니다.
+
+sequence.Append(transform.DOMoveX(5f, 1f));
+sequence.Join(transform.DORotate(new Vector3(0f, 180f, 0f), 1f));
+
+Insert
+
+Sequence의 절대 시간 위치에 Tween을 추가합니다.
+
+sequence.Append(transform.DOMoveX(5f, 2f));
+
+// Sequence 시작 후 0.5초 시점에 크기 변경 시작
+sequence.Insert(
+    0.5f,
+    transform.DOScale(Vector3.one * 2f, 1f)
+
+AppendInterval
+
+Sequence 마지막에 대기 시간을 추가합니다.
+
+sequence.Append(transform.DOMoveX(5f, 1f));
+sequence.AppendInterval(0.5f);
+sequence.Append(transform.DOScale(Vector3.one * 2f, 0.5f));
+
+AppendCallback
+
+Sequence의 해당 지점에서 코드를 실행합니다.
+
+sequence.Append(transform.DOMoveX(5f, 1f));
+
+sequence.AppendCallback(() =>
+{
+    Debug.Log("이동이 끝났습니다.");
+});
+
+sequence.Append(transform.DOScale(Vector3.one * 2f, 0.5f));
