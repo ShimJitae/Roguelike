@@ -95,8 +95,6 @@ public class MonsterMove : MonoBehaviour
     public void SpawnSword()
     {
         swordObject.SetActive(true);
-
-
     }
     public void RemoveSword()
     {

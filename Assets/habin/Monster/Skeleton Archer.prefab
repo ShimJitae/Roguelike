@@ -728,7 +728,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2617876786134972318}
   m_LocalRotation: {x: -0, y: 0.008726557, z: -0, w: 0.9999619}
-  m_LocalPosition: {x: 0, y: 0, z: 0.00015256465}
+  m_LocalPosition: {x: 0, y: 0, z: -0.13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -738,7 +738,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 1, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.9281784, y: -2.929}
+  m_AnchoredPosition: {x: 9.46, y: -6.31}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1761288892495278717
@@ -4343,6 +4343,7 @@ MonoBehaviour:
   attackRange: 4
   moveSpeed: 0
   attackCooldown: 2
+  swordObject: {fileID: 0}
   arrowObject: {fileID: 4327235517696027454, guid: f2ec922d2f2d1fe44ae8ce83bcea4e52, type: 3}
   arrowSpeed: 5
 --- !u!114 &2556622490415274940

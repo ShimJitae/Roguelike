@@ -275,9 +275,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 430befb609af15c4aa88026e7b086467, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  childTransform: {fileID: 0}
   rb: {fileID: 0}
   jumpPower: 0
+  fallMultiplier: 2.5
+  lowJumpMultiplier: 2
+  isPressedJump: 0
   walkSpeed: 0
   runSpeed: 0
 --- !u!1 &213567368
@@ -740,15 +742,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4603646249391099107, guid: bfe2e99d93d31a247b8fd55ac0d84518, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.908
+      value: -1.6
       objectReference: {fileID: 0}
     - target: {fileID: 4603646249391099107, guid: bfe2e99d93d31a247b8fd55ac0d84518, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.059
+      value: -0.199
       objectReference: {fileID: 0}
     - target: {fileID: 4603646249391099107, guid: bfe2e99d93d31a247b8fd55ac0d84518, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.124
+      value: 0.119
       objectReference: {fileID: 0}
     - target: {fileID: 4603646249391099107, guid: bfe2e99d93d31a247b8fd55ac0d84518, type: 3}
       propertyPath: m_LocalRotation.w
@@ -948,9 +950,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 430befb609af15c4aa88026e7b086467, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  childTransform: {fileID: 0}
   rb: {fileID: 0}
   jumpPower: 4
+  fallMultiplier: 2.5
+  lowJumpMultiplier: 2
+  isPressedJump: 0
   walkSpeed: 5
   runSpeed: 0
 --- !u!114 &1195178725
@@ -1131,6 +1135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26bfea632c5ad1842a956aca8c88989d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAnim
+  currentState: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
