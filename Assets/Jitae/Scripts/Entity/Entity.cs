@@ -22,20 +22,22 @@ public class Entity : MonoBehaviour
     private void OnEnable()
     {
         // 실제 체력 데이터 값 감소
-        OnHit += dealDamage;
-
-        // 감소된 체력 데이터를 UI에 반영
-        OnHit += hpViewer.SetGauge;
+        OnHit += TakeDamage;
     }
 
-    // 데미지를 주는 메서드
-    public void dealDamage(float damageValue)
+    private void OnDisable()
+    {
+        OnHit -= TakeDamage;
+    }
+
+    // 데미지를 받는 메서드
+    public void TakeDamage(float damageValue)
     {
         hp -= damageValue;
     }
 
-    // 데미지를 받는 메서드
-    public void TakeDamage(Entity targetEntity, float damage)
+    // 데미지를 주는 메서드
+    private void DealDamage(Entity targetEntity, float damage)
     {
         targetEntity.OnHit?.Invoke(damage);
     }

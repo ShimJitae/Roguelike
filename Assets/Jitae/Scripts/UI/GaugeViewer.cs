@@ -16,6 +16,8 @@ public class GaugeViewer : MonoBehaviour
     private Tween currentTween;
     private float previousValue;
 
+    private Entity entity;
+
     private void Awake()
     {
         // 인스펙터에서 연결하지 않았다면 현재 오브젝트에서 가져옵니다.
@@ -24,10 +26,30 @@ public class GaugeViewer : MonoBehaviour
             slider = GetComponent<Slider>();
         }
 
+        entity = GetComponent<Entity>();
+        if (entity == null)
+        {
+            Debug.LogError("hpViewer에 오브젝트가 할당되지 않았습니다.");
+        }
+
         slider.value = slider.maxValue;
         previousValue = slider.value;
 
         SetMaxValue(100);
+    }
+
+    private void OnEnable()
+    {
+        // 감소된 체력 데이터를 UI에 반영
+        entity.OnHit += SetGauge;
+    }
+
+    private void OnDisable()
+    {
+        entity.OnHit -= SetGauge;
+
+        currentTween?.Kill();
+        currentTween = null;
     }
 
     public void SetMaxValue(float maxValue)
@@ -74,13 +96,6 @@ public class GaugeViewer : MonoBehaviour
 
         previousValue = newValue;
     }
-
-    private void OnDisable()
-    {
-        currentTween?.Kill();
-        currentTween = null;
-    }
-
 
     // 게이지 변경 테스트용 메서드
     [SerializeField] float testValue = 50f;
