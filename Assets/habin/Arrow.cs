@@ -5,6 +5,7 @@ public class Arrow : MonoBehaviour
     private SpriteRenderer sp;
     [SerializeField] private float destroytimer = 10f;
     [SerializeField] private Transform player;
+    private float arrowDamage;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -21,13 +22,24 @@ public class Arrow : MonoBehaviour
         Destroy(gameObject, destroytimer);
 
     }
+    public void SetDamage(float attack)
+    {
+        arrowDamage = attack;
+    }
 
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            //플레이어에게 접촉시 삭제 추후 대미지 넣기
+            PlayerClass playerClass = collision.gameObject.GetComponent<PlayerClass>();
+            if (playerClass != null)
+            {
+                //대미지 나중에 TakeDamage만들기
+                playerClass.hp -= Mathf.Max(0, arrowDamage - playerClass.defense);
+                Debug.Log($"남은 채력{playerClass.hp}");
+            }
+
             Destroy(gameObject);
         }
         else if (collision.gameObject.CompareTag("Wall"))

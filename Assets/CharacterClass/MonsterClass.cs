@@ -1,0 +1,39 @@
+using UnityEngine;
+
+public class MonsterClass : CharacterClass
+{
+    private CharacterAnimController ancon;
+    [SerializeField] private MonsterData monsterData;
+    private string monsterId;
+    private MonsterAttackType attackType;
+    private string monsterName;
+    private float monsterBodyAttack;
+    private float monsterExp;
+    private bool isAlive;
+    private void Awake()
+    {
+        ancon = GetComponent<CharacterAnimController>();
+        maxHp = monsterData.MaxHp;
+        hp = maxHp;
+        attack = monsterData.Attack;
+        defense = monsterData.Defense;
+        monsterId = monsterData.MonsterId;
+        attackType = monsterData.AttackType;
+        monsterName = monsterData.MonsterName;
+        monsterBodyAttack = monsterData.BodyAttack;
+        monsterExp = monsterData.Exp;
+        isAlive = true;
+    }
+    public void PlayerAttack()
+    {
+        if (attackType == MonsterAttackType.ranged)
+        {
+            ancon.PlayAttackBow();
+            return;
+        }
+        else if (attackType == MonsterAttackType.melee)
+        {
+            ancon.PlayAttack();
+        }
+    }
+}
