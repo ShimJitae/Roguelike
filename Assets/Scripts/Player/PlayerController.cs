@@ -11,15 +11,21 @@ public class PlayerController : MonoBehaviour
     private Collision coll;
     private PlayerAnim anim;
 
+    // 점프 관련
     [SerializeField] private float jumpPower;
     [SerializeField] float fallMultiplier = 2.5f;
     [SerializeField] float lowJumpMultiplier = 2f;
     [SerializeField] private bool isPressedJump;
 
 
+    // 이동 관련 - 나중에 Stat쪽으로 빠질 수 있음
     [SerializeField] private float walkSpeed;
     [SerializeField] private float runSpeed;
 
+    // 벽 타기 관련
+    [SerializeField] private float slideSpeed;
+
+    // 키입력
     public Vector2 moveInput { get; private set; }
     public bool isFlip { get; private set; }
 
@@ -93,6 +99,12 @@ public class PlayerController : MonoBehaviour
     void Move()
     {
         rb.linearVelocity = new Vector2(moveInput.x * walkSpeed, rb.linearVelocity.y);
+
+        if (coll.onRightWall && moveInput.x > 0 || coll.onLeftWall && moveInput.x < 0)
+        {
+            rb.linearVelocityX = 0;
+            rb.linearVelocityY = -slideSpeed;
+        }
     }
 
     private void FixedUpdate()

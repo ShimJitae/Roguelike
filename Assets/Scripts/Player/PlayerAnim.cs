@@ -86,6 +86,7 @@ public class PlayerAnim : MonoBehaviour
     // 애니메이션 이벤트로 호출될 메서드
     public void OnAttackEnd()
     {
+        Debug.Log("AttackEnd");
         isAttacking = false;
         if (move.moveInput.x != 0)
         {
