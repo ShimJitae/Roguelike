@@ -4,7 +4,8 @@ using UnityEngine.UI;
 
 public class GaugeViewer : MonoBehaviour
 {
-    private Slider slider;
+    // 해당 뷰어를 사용할 HP 바를 넣어줘야함
+    [SerializeField] private Slider slider;
 
     [Header("Animation")]
     // 증가할 때와 감소할 때의 애니메이션 지속 시간을 따로 설정함으로써,
@@ -20,10 +21,9 @@ public class GaugeViewer : MonoBehaviour
 
     private void Awake()
     {
-        // 인스펙터에서 연결하지 않았다면 현재 오브젝트에서 가져옵니다.
         if (slider == null)
         {
-            slider = GetComponent<Slider>();
+            Debug.LogError("hpViewer에 Slider가 할당되지 않았습니다.");
         }
 
         entity = GetComponent<Entity>();
