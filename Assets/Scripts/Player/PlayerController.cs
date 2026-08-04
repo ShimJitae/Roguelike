@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,13 +18,20 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float lowJumpMultiplier = 2f;
     [SerializeField] private bool isPressedJump;
 
-
     // 이동 관련 - 나중에 Stat쪽으로 빠질 수 있음
     [SerializeField] private float walkSpeed;
     [SerializeField] private float runSpeed;
 
     // 벽 타기 관련
     [SerializeField] private float slideSpeed;
+    [Range(1, 10)]
+    [SerializeField] float wallJumpPower = 7f;
+    [SerializeField] private float wallJumpDelay = 0.1f;
+
+    // 벽슬라이드/벽점프 상태
+    private bool isWallSliding;
+    private bool isWallJumping;
+    private float wallJumpTimer;
 
     // 키입력
     public Vector2 moveInput { get; private set; }
@@ -75,7 +83,17 @@ public class PlayerController : MonoBehaviour
     {
         isPressedJump = value.isPressed;
 
-        Debug.Log($"Jump Pressed : {isPressedJump}");
+        if (!isPressedJump)
+            return;
+
+        
+
+        if (isWallSliding && !coll.onGround)
+        {
+            DoWallJump();
+            return;
+        }
+
         if (coll.onGround)
         {
             // 수평 속도는 유지, 수직만 초기화 후 점프
@@ -86,6 +104,22 @@ public class PlayerController : MonoBehaviour
         //rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower);
 
     }
+
+    void DoWallJump()
+    {
+        int wallDir = GetWallDirectionX();   // +1: 오른쪽 벽, -1: 왼쪽 벽
+
+        // 벽 반대 방향으로 수평, 위로 수직 점프
+        Vector2 jumpVel = new Vector2(-wallDir * wallJumpPower, jumpPower);
+
+        rb.linearVelocity = jumpVel;
+
+        isWallJumping = true;
+        wallJumpTimer = wallJumpDelay;   // 잠깐 동안 Move() 가 수평 속도를 덮어쓰지 않게 함
+
+        Debug.Log($"벽점프! wallDir: {wallDir}, jumpVel: {jumpVel}");
+    }
+
     void BetterJump()
     {
         if (rb.linearVelocityY < 0f)
@@ -99,27 +133,54 @@ public class PlayerController : MonoBehaviour
             rb.gravityScale = 1f;
     }
 
+    int GetWallDirectionX()
+    {
+        // 플레이어 기준 벽 방향: 오른쪽 벽이면 +1, 왼쪽 벽이면 -1
+        if (coll.onRightWall) return 1;
+        if (coll.onLeftWall) return -1;
+        return 0;
+    }
+
     void Move()
     {
+        // 벽점프 중에는 수평 입력으로 속도를 덮어쓰지 않음
+        if (isWallJumping)
+            return;
+
+        // 기본 이동
         rb.linearVelocity = new Vector2(moveInput.x * walkSpeed, rb.linearVelocity.y);
 
-        
-        if (coll.onRightWall && moveInput.x > 0 || coll.onLeftWall && moveInput.x < 0)
+        bool hittingRightWall = coll.onRightWall && moveInput.x > 0;
+        bool hittingLeftWall = coll.onLeftWall && moveInput.x < 0;
+        bool onWall = hittingRightWall || hittingLeftWall;
+        bool notOnGround = !coll.onGround;
+
+        // 벽슬라이드 조건: 벽에 붙어 있고, 공중이며, 벽 방향으로 입력 중
+        if (onWall && notOnGround)
         {
-            if (rb.linearVelocityY >= 0.1f)
-            {
-                Debug.Log("올라가는중");
-                return;
-            }
+            isWallSliding = true;
 
-
-            rb.linearVelocityX = 0;
-            rb.linearVelocityY = -slideSpeed;
+            // X 속도 멈추고, Y 속도를 슬라이드 속도로 제한
+            rb.linearVelocityX = 0f;
+            rb.linearVelocityY = Mathf.Max(rb.linearVelocityY, -slideSpeed);
+        }
+        else
+        {
+            isWallSliding = false;
         }
     }
 
+
     private void FixedUpdate()
     {
+        // 벽점프 딜레이 해제
+        if (isWallJumping)
+        {
+            wallJumpTimer -= Time.fixedDeltaTime;
+            if (wallJumpTimer <= 0f)
+                isWallJumping = false;
+        }
+
         Move();
         BetterJump();
     }
