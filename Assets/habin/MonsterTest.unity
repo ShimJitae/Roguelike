@@ -931,11 +931,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 464772057360553758, guid: 04bc348836e384745ab7947644343a35, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.39999998
+      value: -0.47
       objectReference: {fileID: 0}
     - target: {fileID: 464772057360553758, guid: 04bc348836e384745ab7947644343a35, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.29999995
+      value: 0.33
       objectReference: {fileID: 0}
     - target: {fileID: 464772057360553758, guid: 04bc348836e384745ab7947644343a35, type: 3}
       propertyPath: m_LocalPosition.z
@@ -975,12 +975,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5957189536435483299, guid: 04bc348836e384745ab7947644343a35, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8619134855353600262, guid: 04bc348836e384745ab7947644343a35, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5957189536435483299, guid: 04bc348836e384745ab7947644343a35, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1661543425}
   m_SourcePrefab: {fileID: 100100000, guid: 04bc348836e384745ab7947644343a35, type: 3}
 --- !u!1 &1652622289
 GameObject:
@@ -1023,6 +1030,52 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 464772057360553758, guid: 04bc348836e384745ab7947644343a35, type: 3}
   m_PrefabInstance: {fileID: 1379376576}
   m_PrefabAsset: {fileID: 0}
+--- !u!61 &1661543425
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1661543419}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.9, y: 0.1}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 15.36, y: 10.24}
+    newSize: {x: 15.36, y: 10.24}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 4.13, y: 3.96}
+  m_EdgeRadius: 0
 --- !u!1 &1774592996
 GameObject:
   m_ObjectHideFlags: 0
@@ -1346,6 +1399,10 @@ PrefabInstance:
     - target: {fileID: 6632306288514850768, guid: 9224b2ebfa5a782439b211b9d130d47b, type: 3}
       propertyPath: m_Name
       value: SkeletonSwordsMan
+      objectReference: {fileID: 0}
+    - target: {fileID: 6632306288514850768, guid: 9224b2ebfa5a782439b211b9d130d47b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
