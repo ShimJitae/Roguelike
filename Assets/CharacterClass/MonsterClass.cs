@@ -12,6 +12,7 @@ public class MonsterClass : Entity
     private bool isAlive;
     private void Awake()
     {
+        entityType = EntityType.Monster;
         ancon = GetComponent<CharacterAnimController>();
         maxHp = monsterData.MaxHp;
         hp = maxHp;
