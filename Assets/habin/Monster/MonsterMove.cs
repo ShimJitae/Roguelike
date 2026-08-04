@@ -1,4 +1,5 @@
 using Unity.Android.Gradle.Manifest;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Windows;
 
@@ -8,8 +9,9 @@ public class MonsterMove : MonoBehaviour
     private Animator an;
     private CharacterAnimController ancon;
     private SwordAttack swordAttack;
-    [SerializeField] private MonsterData monsterData;
+    private MonsterClass monsterClass;
     [SerializeField] private Transform AttackField;
+    private SpriteRenderer[] sp;
 
     [Header("이동 및 감지")]
     [SerializeField] private LayerMask playerLayer;
@@ -31,11 +33,17 @@ public class MonsterMove : MonoBehaviour
     private int moveDirection = 1;
     private void Awake()
     {
+        sp = GetComponentsInChildren<SpriteRenderer>();
+        monsterClass = GetComponent<MonsterClass>();
         rb = GetComponent<Rigidbody2D>();
         ancon = GetComponent<CharacterAnimController>();
         Transform unitRoot = transform.Find("UnitRoot");
         an = unitRoot.GetComponent<Animator>();
         swordAttack = GetComponent<SwordAttack>();
+        if (swordObject != null)
+        {
+            swordAttack = swordObject.GetComponentInChildren<SwordAttack>(true);
+        }
 
     }
 
@@ -52,7 +60,8 @@ public class MonsterMove : MonoBehaviour
             {
                 if (Time.time >= nextAttackTime)
                 {
-                    PlayerAttack();
+                    rb.linearVelocity = Vector2.zero;
+                    monsterClass.PlayerAttack();
                     nextAttackTime = Time.time + attackCooldown;
                 }
             }
@@ -78,23 +87,11 @@ public class MonsterMove : MonoBehaviour
         MonsterFlip();
 
     }
-
-
-    private void PlayerAttack()
-    {
-        if (monsterData.AttackType == MonsterAttackType.ranged)
-        {
-            ancon.PlayAttackBow();
-            return;
-        }
-        else if (monsterData.AttackType == MonsterAttackType.melee)
-        {
-            ancon.PlayAttack();
-        }
-    }
     public void SpawnSword()
     {
         swordObject.SetActive(true);
+        //검공격에 대미지 저장
+        swordAttack.SetDamage(monsterClass.attack);
     }
     public void RemoveSword()
     {
@@ -103,7 +100,10 @@ public class MonsterMove : MonoBehaviour
     }
     public void SpawnArrow()
     {
+        //화살 생성
         GameObject arrow = Instantiate(arrowObject, AttackField.position, Quaternion.identity);
+        Arrow arrowScript = arrow.GetComponent<Arrow>();
+        arrowScript.SetDamage(monsterClass.attack);
         Rigidbody2D arrowRb = arrow.GetComponent<Rigidbody2D>();
         if (AttackField.localPosition.x == -0.5f)
         {
@@ -160,6 +160,25 @@ public class MonsterMove : MonoBehaviour
             currentIndex = 0;
         }
     }
+    private IEnumerator HitEffect()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            foreach (SpriteRenderer sps in sp)
+            {
+                sps.enabled = false;
+            }
+
+            yield return new WaitForSeconds(0.1f);
+
+            foreach (SpriteRenderer sps in sp)
+            {
+                sps.enabled = true;
+            }
+
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -167,4 +186,5 @@ public class MonsterMove : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
+
 }

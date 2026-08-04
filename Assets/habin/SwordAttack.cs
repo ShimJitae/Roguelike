@@ -4,6 +4,7 @@ public class SwordAttack : MonoBehaviour
 {
     private SpriteRenderer sp;
     [SerializeField] private Transform player;
+    private float swordDamage;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -21,12 +22,23 @@ public class SwordAttack : MonoBehaviour
             sp.flipX = true;
         }
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void SetDamage(float attack)
     {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            //플레이어에게 접촉시 삭제 추후 대미지 넣기
-        }
+        swordDamage = attack;
     }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!other.CompareTag("Player"))
+            return;
+
+        PlayerClass playerClass = other.GetComponent<PlayerClass>();
+
+        if (playerClass != null)
+        {
+            playerClass.hp -= Mathf.Max(0, swordDamage - playerClass.defense);
+            Debug.Log($"남은 채력{playerClass.hp}");
+        }
+
+    }
+
 }
