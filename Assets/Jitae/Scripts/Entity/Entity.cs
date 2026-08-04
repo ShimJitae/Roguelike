@@ -5,9 +5,14 @@ using UnityEngine;
 [RequireComponent(typeof(GaugeViewer))]
 public class Entity : MonoBehaviour
 {
-    [SerializeField] private float hp;
-    [SerializeField] private float atk;
-    [SerializeField] private float def;
+    [SerializeField] protected float maxHp;
+    public float MaxHp => maxHp;
+    [SerializeField] protected float hp;
+    public float Hp => hp;
+    [SerializeField] protected float atk;
+    public float Atk => atk;
+    [SerializeField] protected float def;
+    public float Def => def;
 
     /*
     다른 개체에게 공격을 당했을 때, 실행시킬 이벤트

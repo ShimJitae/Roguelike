@@ -6,6 +6,10 @@ public class GaugeViewer : MonoBehaviour
 {
     // 해당 뷰어를 사용할 HP 바를 넣어줘야함
     [SerializeField] private Slider slider;
+    public Slider Slider
+    {
+        set => slider = value;
+    }
 
     [Header("Animation")]
     // 증가할 때와 감소할 때의 애니메이션 지속 시간을 따로 설정함으로써,
@@ -23,20 +27,19 @@ public class GaugeViewer : MonoBehaviour
     {
         if (slider == null)
         {
-            Debug.LogError("hpViewer에 Slider가 할당되지 않았습니다.");
+            Debug.Log("hpViewer에 Slider가 할당되지 않았습니다.");
+        }
+        else
+        {
+            slider.value = slider.maxValue;
+            previousValue = slider.value;
         }
 
         entity = GetComponent<Entity>();
         if (entity == null)
         {
-            Debug.LogError("hpViewer에 오브젝트가 할당되지 않았습니다.");
+            Debug.Log("hpViewer에 오브젝트가 할당되지 않았습니다.");
         }
-
-        slider.value = slider.maxValue;
-        previousValue = slider.value;
-
-
-        SetMaxValue(100);
     }
 
     private void OnEnable()
@@ -57,8 +60,23 @@ public class GaugeViewer : MonoBehaviour
         currentTween = null;
     }
 
-    public void SetMaxValue(float maxValue)
+    void Start()
     {
+        float maxValue = 100;
+        if (slider != null)
+        {
+            Debug.LogError("hpViewer에 Slider가 할당되지 않았습니다.");
+            maxValue = entity.MaxHp;
+        }
+
+        SetSliderMaxValue(maxValue);
+    }
+
+    public void SetSliderMaxValue(float maxValue)
+    {
+        if (slider == null)
+            return;
+
         slider.maxValue = maxValue;
         slider.value = maxValue;
         previousValue = maxValue;
