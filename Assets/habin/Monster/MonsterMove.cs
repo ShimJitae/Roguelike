@@ -60,6 +60,7 @@ public class MonsterMove : MonoBehaviour
             {
                 if (Time.time >= nextAttackTime)
                 {
+                    rb.linearVelocity = Vector2.zero;
                     monsterClass.PlayerAttack();
                     nextAttackTime = Time.time + attackCooldown;
                 }
