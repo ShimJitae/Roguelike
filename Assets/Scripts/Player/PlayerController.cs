@@ -91,7 +91,10 @@ public class PlayerController : MonoBehaviour
         if (rb.linearVelocityY < 0f)
             rb.gravityScale = fallMultiplier;
         else if (rb.linearVelocityY > 0f && !isPressedJump)
-            rb.gravityScale = lowJumpMultiplier;
+        {
+            rb.linearVelocityY = 0f;
+            rb.gravityScale = fallMultiplier;
+        }
         else
             rb.gravityScale = 1f;
     }
@@ -100,8 +103,16 @@ public class PlayerController : MonoBehaviour
     {
         rb.linearVelocity = new Vector2(moveInput.x * walkSpeed, rb.linearVelocity.y);
 
+        
         if (coll.onRightWall && moveInput.x > 0 || coll.onLeftWall && moveInput.x < 0)
         {
+            if (rb.linearVelocityY >= 0.1f)
+            {
+                Debug.Log("올라가는중");
+                return;
+            }
+
+
             rb.linearVelocityX = 0;
             rb.linearVelocityY = -slideSpeed;
         }
