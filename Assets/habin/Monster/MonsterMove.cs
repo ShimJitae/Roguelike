@@ -91,7 +91,7 @@ public class MonsterMove : MonoBehaviour
     {
         swordObject.SetActive(true);
         //검공격에 대미지 저장
-        swordAttack.SetDamage(monsterClass.attack);
+        swordAttack.SetDamage(monsterClass.Atk);
     }
     public void RemoveSword()
     {
@@ -103,7 +103,7 @@ public class MonsterMove : MonoBehaviour
         //화살 생성
         GameObject arrow = Instantiate(arrowObject, AttackField.position, Quaternion.identity);
         Arrow arrowScript = arrow.GetComponent<Arrow>();
-        arrowScript.SetDamage(monsterClass.attack);
+        arrowScript.SetDamage(monsterClass.Atk);
         Rigidbody2D arrowRb = arrow.GetComponent<Rigidbody2D>();
         if (AttackField.localPosition.x == -0.5f)
         {
