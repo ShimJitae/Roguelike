@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public class MonsterMove : MonoBehaviour
 {
@@ -12,12 +11,12 @@ public class MonsterMove : MonoBehaviour
     private SpriteRenderer[] sp;
 
     [Header("이동 및 감지")]
+    [SerializeField] private float moveSpeed;
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] public Transform player;
     [SerializeField] private Transform[] movePoints;
     [SerializeField] private float detcetRange;
     [SerializeField] private float attackRange;
-    [SerializeField] private float moveSpeed;
 
     [SerializeField] private float attackCooldown = 2f;
     [Header("근접 공격")]
@@ -47,10 +46,6 @@ public class MonsterMove : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            StartCoroutine(HitEffect());
-        }
         Collider2D findPlayer = Physics2D.OverlapCircle(transform.position, detcetRange, playerLayer);
         Collider2D attack = Physics2D.OverlapCircle(transform.position, attackRange, playerLayer);
         //범위안의 플레이어 추격
@@ -173,23 +168,5 @@ public class MonsterMove : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, detcetRange);
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, attackRange);
-    }
-
-    private IEnumerator HitEffect()
-    {
-        Transform unitRoot = transform.Find("UnitRoot");
-        if (unitRoot == null)
-        {
-            yield break;
-        }
-        for (int i = 0; i < 3; i++)
-        {
-            Debug.Log($"{gameObject.name}의 {unitRoot.name} 끄기");
-            unitRoot.gameObject.SetActive(false);
-            yield return new WaitForSeconds(0.05f);
-            Debug.Log($"{gameObject.name}의 {unitRoot.name} 켜기");
-            unitRoot.gameObject.SetActive(true);
-            yield return new WaitForSeconds(0.05f);
-        }
     }
 }

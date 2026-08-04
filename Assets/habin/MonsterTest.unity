@@ -690,8 +690,11 @@ GameObject:
   - component: {fileID: 512318833}
   - component: {fileID: 512318832}
   - component: {fileID: 512318831}
+  - component: {fileID: 512318838}
+  - component: {fileID: 512318837}
+  - component: {fileID: 512318836}
   m_Layer: 0
-  m_Name: ready_1
+  m_Name: BossSkeletonKing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -857,6 +860,62 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &512318836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 512318830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b06babe9fb9a2c44ba932d202346401, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MonsterClass
+  maxHp: 0
+  hp: 0
+  atk: 0
+  def: 0
+  monsterData: {fileID: 11400000, guid: f55aef31de3497c4f9099f8c7058a725, type: 2}
+--- !u!114 &512318837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 512318830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d70eede1c13aea43b1b9757603b9de6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GaugeViewer
+  slider: {fileID: 0}
+  increaseDuration: 1.75
+  decreaseDuration: 0.5
+  testValue: 50
+--- !u!114 &512318838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 512318830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b50ddf67616eba46a517ab9ff6e605e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossMove
+  AttackField: {fileID: 0}
+  moveSpeed: 0
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  player: {fileID: 0}
+  attackRange: 5
+  attackCooldown: 2
+  prickObject: {fileID: 0}
+  swordAuraObject: {fileID: 0}
+  swordAuraSpeed: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1526,7 +1585,7 @@ PrefabInstance:
       objectReference: {fileID: 1959863013}
     - target: {fileID: 698418416195867112, guid: c744d158095d9764dbf655c634f4f29d, type: 3}
       propertyPath: moveSpeed
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 698418416195867112, guid: c744d158095d9764dbf655c634f4f29d, type: 3}
       propertyPath: 'movePoints.Array.data[0]'
@@ -1610,11 +1669,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6707370863215561589, guid: c744d158095d9764dbf655c634f4f29d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.17
+      value: 5.63
       objectReference: {fileID: 0}
     - target: {fileID: 6707370863215561589, guid: c744d158095d9764dbf655c634f4f29d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -2.67
+      value: -6.22
       objectReference: {fileID: 0}
     - target: {fileID: 6707370863215561589, guid: c744d158095d9764dbf655c634f4f29d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

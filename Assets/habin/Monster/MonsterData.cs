@@ -2,7 +2,8 @@ using UnityEngine;
 public enum MonsterAttackType
 {
     melee,//근접
-    ranged//원거리
+    ranged,//원거리
+    Boss
 
 }
 [CreateAssetMenu(menuName = "Game Data/Monster Data")]
