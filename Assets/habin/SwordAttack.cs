@@ -35,8 +35,8 @@ public class SwordAttack : MonoBehaviour
 
         if (playerClass != null)
         {
-            playerClass.hp -= Mathf.Max(0, swordDamage - playerClass.defense);
-            Debug.Log($"남은 채력{playerClass.hp}");
+            playerClass.OnHit?.Invoke(Mathf.Max(0, swordDamage - playerClass.Def));
+            Debug.Log($"남은 채력{playerClass.Hp}");
         }
 
     }

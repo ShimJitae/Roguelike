@@ -36,6 +36,7 @@ public class Entity : MonoBehaviour
     // 데미지를 받는 메서드
     public void TakeDamage(float damageValue)
     {
+        Debug.Log(damageValue +"   " + hp);
         hp -= damageValue;
     }
 

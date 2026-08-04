@@ -36,8 +36,10 @@ public class Arrow : MonoBehaviour
             if (playerClass != null)
             {
                 //대미지 나중에 TakeDamage만들기
-                playerClass.hp -= Mathf.Max(0, arrowDamage - playerClass.defense);
-                Debug.Log($"남은 채력{playerClass.hp}");
+                //playerClass.hp -= Mathf.Max(0, arrowDamage - playerClass.Def);
+
+                playerClass.OnHit?.Invoke(Mathf.Max(0, arrowDamage - playerClass.Def));
+                Debug.Log($"남은 채력{playerClass.Hp}");
             }
 
             Destroy(gameObject);
