@@ -30,6 +30,7 @@ public class BossHPBarEnabler : MonoBehaviour
     {
         bossUI = Instantiate(bossUIPrefab);
         bossHPBar = bossUI.GetComponentInChildren<Slider>();
+        bossHPBar.onValueChanged.AddListener(_ => DestroyWhenValue0());
 
         bossHPBar.gameObject.SetActive(true);
         bossUI.gameObject.SetActive(false);
@@ -47,8 +48,11 @@ public class BossHPBarEnabler : MonoBehaviour
         hpBarEndPos = new Vector2(hpBarStartPos.x, hpBarStartPos.y - 180f);
     }
 
-    void OnDisable()
+    void DestroyWhenValue0()
     {
-        Destroy(bossUI);
+        if (bossHPBar.value <= 0)
+        {
+            Destroy(bossUI);
+        }
     }
 }
