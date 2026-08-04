@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class PlayerClass : Entity
 {
@@ -7,6 +8,7 @@ public class PlayerClass : Entity
     [SerializeField] float playerdef= 10;
     private void Awake()
     {
+        entityType = EntityType.Player;
         maxHp = playerMaxHp;
         hp = maxHp;
         atk = playeratk;

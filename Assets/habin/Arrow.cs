@@ -40,6 +40,7 @@ public class Arrow : MonoBehaviour
 
                 playerClass.OnHit?.Invoke(Mathf.Max(0, arrowDamage - playerClass.Def));
                 Debug.Log($"남은 채력{playerClass.Hp}");
+                Destroy(gameObject);
             }
 
             Destroy(gameObject);

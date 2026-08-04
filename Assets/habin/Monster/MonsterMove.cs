@@ -1,7 +1,5 @@
-using Unity.Android.Gradle.Manifest;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.Windows;
+using System.Collections;
 
 public class MonsterMove : MonoBehaviour
 {
@@ -49,6 +47,10 @@ public class MonsterMove : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            StartCoroutine(HitEffect());
+        }
         Collider2D findPlayer = Physics2D.OverlapCircle(transform.position, detcetRange, playerLayer);
         Collider2D attack = Physics2D.OverlapCircle(transform.position, attackRange, playerLayer);
         //범위안의 플레이어 추격
@@ -86,7 +88,10 @@ public class MonsterMove : MonoBehaviour
         }
         MonsterFlip();
 
+       
+
     }
+   
     public void SpawnSword()
     {
         swordObject.SetActive(true);
@@ -160,25 +165,8 @@ public class MonsterMove : MonoBehaviour
             currentIndex = 0;
         }
     }
-    private IEnumerator HitEffect()
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            foreach (SpriteRenderer sps in sp)
-            {
-                sps.enabled = false;
-            }
 
-            yield return new WaitForSeconds(0.1f);
 
-            foreach (SpriteRenderer sps in sp)
-            {
-                sps.enabled = true;
-            }
-
-            yield return new WaitForSeconds(0.1f);
-        }
-    }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -187,4 +175,21 @@ public class MonsterMove : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 
+    private IEnumerator HitEffect()
+    {
+        Transform unitRoot = transform.Find("UnitRoot");
+        if (unitRoot == null)
+        {
+            yield break;
+        }
+        for (int i = 0; i < 3; i++)
+        {
+            Debug.Log($"{gameObject.name}의 {unitRoot.name} 끄기");
+            unitRoot.gameObject.SetActive(false);
+            yield return new WaitForSeconds(0.05f);
+            Debug.Log($"{gameObject.name}의 {unitRoot.name} 켜기");
+            unitRoot.gameObject.SetActive(true);
+            yield return new WaitForSeconds(0.05f);
+        }
+    }
 }
