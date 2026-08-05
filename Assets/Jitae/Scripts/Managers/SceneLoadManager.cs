@@ -21,10 +21,8 @@ public class SceneLoadManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void LoadScene(SceneType sceneType)
+    public void LoadScene(string sceneName)
     {
-        string sceneName = sceneType.ToString();
-
         FadeManager.Instance.OnFadeComplete += () => SceneManager.LoadScene(sceneName);
         FadeManager.Instance.Fade();
 
