@@ -1,17 +1,18 @@
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
-public class PlayerClass : CharacterClass
+public class PlayerClass : Entity
 {
     [SerializeField] float playerMaxHp = 100;
-    [SerializeField] float playerattack = 10;
-    [SerializeField] float playerdefense = 10;
-    public float hp;
+    [SerializeField] float playeratk = 10;
+    [SerializeField] float playerdef= 10;
     private void Awake()
     {
+        entityType = EntityType.Player;
         maxHp = playerMaxHp;
         hp = maxHp;
-        attack = playerattack;
-        defense = playerdefense;
+        atk = playeratk;
+        def= playerdef;
 
     }
 }

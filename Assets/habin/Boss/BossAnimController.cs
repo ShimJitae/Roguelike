@@ -1,9 +1,8 @@
 using UnityEngine;
 
-public class CharacterAnimController : MonoBehaviour
+public class BossAnimController : MonoBehaviour
 {
     private Animator an;
-    private Animator animator;
     private static readonly int IdleHash = Animator.StringToHash("IDLE");
     private static readonly int moveHash = Animator.StringToHash("MOVE");
     private static readonly int CastHash = Animator.StringToHash("CAST");
@@ -12,13 +11,9 @@ public class CharacterAnimController : MonoBehaviour
     private static readonly int AttackBowHash = Animator.StringToHash("ATTACKBOW");
     private static readonly int DamagedHash = Animator.StringToHash("DAMAGED");
     private static readonly int DeathHash = Animator.StringToHash("DEATH");
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Transform unitRoot = transform.Find("UnitRoot");
-        an = unitRoot.GetComponent<Animator>();
-        animator = GetComponent<Animator>();
-
+        an = GetComponent<Animator>();
     }
     public void PlayIdle()
     {

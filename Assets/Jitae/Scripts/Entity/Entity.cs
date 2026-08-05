@@ -1,10 +1,14 @@
 using System;
 using UnityEngine;
+using System.Collections;
+
 
 // 몬스터/플레이어는 모두 HP 게이지를 가지고 있어야 하므로, Entity 클래스에서 HP 게이지를 관리하도록 합니다.
 [RequireComponent(typeof(GaugeViewer))]
 public class Entity : MonoBehaviour
 {
+    private SpriteRenderer[] spriteRenderers;
+    protected EntityType entityType;
     [SerializeField] protected float maxHp;
     public float MaxHp => maxHp;
     [SerializeField] protected float hp;
@@ -13,6 +17,7 @@ public class Entity : MonoBehaviour
     public float Atk => atk;
     [SerializeField] protected float def;
     public float Def => def;
+    protected bool isAlive = true;
 
     /*
     다른 개체에게 공격을 당했을 때, 실행시킬 이벤트
@@ -21,7 +26,10 @@ public class Entity : MonoBehaviour
     OnHit의 매개변수 float는 받는 데미지
     */
     public Action<float> OnHit;
-
+    private void Awake()
+    {
+        spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+    }
     private void OnEnable()
     {
         // 실제 체력 데이터 값 감소
@@ -37,6 +45,24 @@ public class Entity : MonoBehaviour
     public void TakeDamage(float damageValue)
     {
         hp -= damageValue;
+        if(entityType == EntityType.Monster)
+        {
+            StartCoroutine(HitEffect());
+        }
+        else if(entityType == EntityType.Player)
+        {
+
+            StartCoroutine(HitEffect());
+        }
+        else if(entityType == EntityType.Boss)
+        {
+
+            StartCoroutine(HitEffect());
+        }
+        if (hp <= 0)
+        {
+            isAlive = false;
+        }
     }
 
     /*
@@ -47,5 +73,20 @@ public class Entity : MonoBehaviour
     private void DealDamage(Entity targetEntity, float damage)
     {
         targetEntity.OnHit?.Invoke(damage);
+    }
+    private IEnumerator HitEffect()
+    {
+        Transform unitRoot = transform.Find("UnitRoot");
+        if (unitRoot == null)
+        {
+            yield break;
+        }
+        for (int i = 0; i < 3; i++)
+        {
+            unitRoot.gameObject.SetActive(false);
+            yield return new WaitForSeconds(0.05f);
+            unitRoot.gameObject.SetActive(true);
+            yield return new WaitForSeconds(0.05f);
+        }
     }
 }

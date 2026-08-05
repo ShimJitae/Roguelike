@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MonsterClass : CharacterClass
+public class MonsterClass : Entity
 {
     private CharacterAnimController ancon;
     [SerializeField] private MonsterData monsterData;
@@ -9,14 +9,14 @@ public class MonsterClass : CharacterClass
     private string monsterName;
     private float monsterBodyAttack;
     private float monsterExp;
-    private bool isAlive;
     private void Awake()
     {
+        entityType = EntityType.Monster;
         ancon = GetComponent<CharacterAnimController>();
         maxHp = monsterData.MaxHp;
         hp = maxHp;
-        attack = monsterData.Attack;
-        defense = monsterData.Defense;
+        atk = monsterData.Attack;
+        def = monsterData.Defense;
         monsterId = monsterData.MonsterId;
         attackType = monsterData.AttackType;
         monsterName = monsterData.MonsterName;
@@ -24,10 +24,13 @@ public class MonsterClass : CharacterClass
         monsterExp = monsterData.Exp;
         isAlive = true;
     }
+
     public void PlayerAttack()
     {
+        Debug.Log("MonsterAttack!");
         if (attackType == MonsterAttackType.ranged)
         {
+
             ancon.PlayAttackBow();
             return;
         }

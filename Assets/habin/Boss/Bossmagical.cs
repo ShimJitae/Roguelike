@@ -1,33 +1,36 @@
 using UnityEngine;
 
-public class Arrow : MonoBehaviour
+public class Bossmagical : MonoBehaviour
 {
-    private SpriteRenderer sp;
     [SerializeField] private float destroytimer = 10f;
     [SerializeField] private Transform player;
-    private float arrowDamage;
-    void Start()
+    private SpriteRenderer sp;
+    private Rigidbody2D rb;
+    private float Damage;
+    private float Speed = 5;
+    private void Awake()
     {
+        rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        sp = GetComponent<SpriteRenderer>();
-        if (player.position.x < transform.position.x)
+    }
+    private void Update()
+    {
+        Vector2 direction = (player.position - transform.position).normalized;
+        rb.linearVelocity = direction * Speed;
+        if(player.position.x < transform.position.x)
         {
             sp.flipX = false;
         }
-        if (player.position.x > transform.position.x)
+        else if (player.position.x > transform.position.x)
         {
             sp.flipX = true;
         }
-        //생성후 destroytimer에 맞춰 사라짐
         Destroy(gameObject, destroytimer);
-
     }
     public void SetDamage(float attack)
     {
-        arrowDamage = attack;
+        Damage = attack;
     }
-
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -35,16 +38,17 @@ public class Arrow : MonoBehaviour
             PlayerClass playerClass = collision.gameObject.GetComponent<PlayerClass>();
             if (playerClass != null)
             {
-                playerClass.OnHit?.Invoke(Mathf.Max(0, arrowDamage - playerClass.Def));
+                playerClass.OnHit?.Invoke(Mathf.Max(0, Damage - playerClass.Def));
                 Debug.Log($"남은 채력{playerClass.Hp}");
                 Destroy(gameObject);
             }
 
             Destroy(gameObject);
         }
-        else if (collision.gameObject.CompareTag("Monster")|| collision.gameObject.CompareTag("Wall")|| collision.gameObject.CompareTag("Ground"))
+        else if (collision.gameObject.CompareTag("Monster") || collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Ground"))
         {
             Destroy(gameObject);
         }
     }
+
 }

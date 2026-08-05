@@ -1,27 +1,11 @@
 using UnityEngine;
 
-public class SwordAttack : MonoBehaviour
+public class BossMeleeAttack : MonoBehaviour
 {
-    private SpriteRenderer sp;
-    [SerializeField] private Transform player;
     private float swordDamage;
-    void Start()
-    {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-        sp = GetComponent<SpriteRenderer>();
-      
-    }
-    private void Update()
-    {
-        if (player.position.x > transform.position.x)
-        {
-            sp.flipX = false;
-        }
-        if (player.position.x < transform.position.x)
-        {
-            sp.flipX = true;
-        }
-    }
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+
     public void SetDamage(float attack)
     {
         swordDamage = attack;
@@ -40,5 +24,4 @@ public class SwordAttack : MonoBehaviour
         }
 
     }
-
 }

@@ -1,7 +1,4 @@
-using Unity.Android.Gradle.Manifest;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.Windows;
 
 public class MonsterMove : MonoBehaviour
 {
@@ -12,14 +9,15 @@ public class MonsterMove : MonoBehaviour
     private MonsterClass monsterClass;
     [SerializeField] private Transform AttackField;
     private SpriteRenderer[] sp;
+    public   bool isAttacking;
 
     [Header("이동 및 감지")]
+    [SerializeField] private float moveSpeed;
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] public Transform player;
     [SerializeField] private Transform[] movePoints;
     [SerializeField] private float detcetRange;
     [SerializeField] private float attackRange;
-    [SerializeField] private float moveSpeed;
 
     [SerializeField] private float attackCooldown = 2f;
     [Header("근접 공격")]
@@ -51,21 +49,32 @@ public class MonsterMove : MonoBehaviour
     {
         Collider2D findPlayer = Physics2D.OverlapCircle(transform.position, detcetRange, playerLayer);
         Collider2D attack = Physics2D.OverlapCircle(transform.position, attackRange, playerLayer);
+        if (isAttacking == true)
+        {
+            rb.linearVelocity = Vector2.zero;
+            an.SetFloat("IsSpeed", 0f);
+            return;
+        }
+        if(isAttacking == false)
+        {
+            an.SetFloat("IsSpeed", 3f);
+        }
         //범위안의 플레이어 추격
         if (findPlayer != null)
         {
-            TrackingPlayer();
-            Debug.Log("발견");
             if (attack != null)
             {
                 if (Time.time >= nextAttackTime)
                 {
-                    rb.linearVelocity = Vector2.zero;
+                    StartAttack();
                     monsterClass.PlayerAttack();
                     nextAttackTime = Time.time + attackCooldown;
+                    return;
                 }
             }
+            TrackingPlayer();
             return;
+
         }
         //포인트가 없을때 움직이지 않음
         if (movePoints == null || movePoints.Length == 0)
@@ -85,13 +94,20 @@ public class MonsterMove : MonoBehaviour
             ChangeTargetPoint();
         }
         MonsterFlip();
+        
+    }
 
+    private void StartAttack()
+    {
+        isAttacking = true;
+        rb.linearVelocity = Vector2.zero;
+        an.SetFloat("IsSpeed", 0f);
     }
     public void SpawnSword()
     {
         swordObject.SetActive(true);
         //검공격에 대미지 저장
-        swordAttack.SetDamage(monsterClass.attack);
+        swordAttack.SetDamage(monsterClass.Atk);
     }
     public void RemoveSword()
     {
@@ -103,7 +119,7 @@ public class MonsterMove : MonoBehaviour
         //화살 생성
         GameObject arrow = Instantiate(arrowObject, AttackField.position, Quaternion.identity);
         Arrow arrowScript = arrow.GetComponent<Arrow>();
-        arrowScript.SetDamage(monsterClass.attack);
+        arrowScript.SetDamage(monsterClass.Atk);
         Rigidbody2D arrowRb = arrow.GetComponent<Rigidbody2D>();
         if (AttackField.localPosition.x == -0.5f)
         {
@@ -160,25 +176,8 @@ public class MonsterMove : MonoBehaviour
             currentIndex = 0;
         }
     }
-    private IEnumerator HitEffect()
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            foreach (SpriteRenderer sps in sp)
-            {
-                sps.enabled = false;
-            }
 
-            yield return new WaitForSeconds(0.1f);
 
-            foreach (SpriteRenderer sps in sp)
-            {
-                sps.enabled = true;
-            }
-
-            yield return new WaitForSeconds(0.1f);
-        }
-    }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -186,5 +185,4 @@ public class MonsterMove : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
-
 }

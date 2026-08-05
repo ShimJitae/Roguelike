@@ -65,7 +65,6 @@ public class GaugeViewer : MonoBehaviour
         float maxValue = 100;
         if (slider != null)
         {
-            Debug.LogError("hpViewer에 Slider가 할당되지 않았습니다.");
             maxValue = entity.MaxHp;
         }
 
