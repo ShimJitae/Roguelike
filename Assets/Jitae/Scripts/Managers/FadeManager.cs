@@ -21,7 +21,7 @@ public class FadeManager : MonoBehaviour
     public bool IsFading { get; private set; }
 
     // FadeOut이 끝난 시점
-    public event Action OnFadeComplete;
+    public event Action OnFadeOutComplete;
 
     private Tween currentTween;
 
@@ -66,7 +66,7 @@ public class FadeManager : MonoBehaviour
             .OnComplete(() =>
             {
                 // 2. 완전히 검어진 상태에서 이벤트를 실행시킨다.
-                OnFadeComplete?.Invoke();
+                OnFadeOutComplete?.Invoke();
 
                 // 3. 1초 대기 후 화면을 다시 투명하게 만든다.
                 currentTween = DOVirtual.DelayedCall(1f, () =>
@@ -82,9 +82,7 @@ public class FadeManager : MonoBehaviour
         currentTween = null;
         fadeUI.gameObject.SetActive(false);
         IsFading = false;
-        OnFadeComplete = null;
-
-        OnFadeComplete?.Invoke();
+        OnFadeOutComplete = null;
     }
 
     private void OnDestroy()

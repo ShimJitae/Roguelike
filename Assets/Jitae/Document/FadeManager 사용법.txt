@@ -1,0 +1,3 @@
+1. FadeManager.Instance.OnFadeOutComplete 에 FadeOut이 완료되었을 때(화면이 검정색으로 변했을 때) 실행시킬 Action 이벤트를 등록시켜준다. (실행시킬 것이 없으면 등록 안해도됨)
+2. FadeManager에서 Fade()를 실행시킨다.
+※ Fade()가 완료되면 FadeManager.Instance.OnFadeOutComplete는 자동으로 초기화됩니다.

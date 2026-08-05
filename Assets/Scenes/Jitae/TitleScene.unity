@@ -256,11 +256,6 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!1 &456239170 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3229263116737181363, guid: 476bae0142e660b4abf714ad901caf48, type: 3}
-  m_PrefabInstance: {fileID: 3609630449365460700}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &641607571
 GameObject:
   m_ObjectHideFlags: 0
@@ -723,19 +718,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1276293466}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 456239170}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1276293466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1060,6 +1043,7 @@ GameObject:
   - component: {fileID: 2035031934}
   - component: {fileID: 2035031933}
   - component: {fileID: 2035031932}
+  - component: {fileID: 2035031936}
   m_Layer: 5
   m_Name: TitleSceneUI
   m_TagString: Untagged
@@ -1150,6 +1134,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &2035031936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2035031931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16d55dda21c3178458e95843ddda0a1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TitleSceneSetter
+  startButton: {fileID: 1276293465}
+  exitButton: {fileID: 1238868094}
 --- !u!1001 &3609630449365460700
 PrefabInstance:
   m_ObjectHideFlags: 0

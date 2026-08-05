@@ -21,16 +21,26 @@ public class SceneLoadManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    public void LoadScene(SceneType sceneType)
+    {
+        LoadScene(sceneType.ToString());
+    }
+
     public void LoadScene(string sceneName)
     {
-        FadeManager.Instance.OnFadeComplete += () => SceneManager.LoadScene(sceneName);
+        FadeManager.Instance.OnFadeOutComplete += () => SceneManager.LoadScene(sceneName);
         FadeManager.Instance.Fade();
 
         Debug.Log($"활성화된 씬 : {SceneManager.GetActiveScene().name}");
     }
 
-    void SetUpMinimap()
+    public void ExitGame()
     {
 
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+    Application.Quit();
+#endif
     }
 }
