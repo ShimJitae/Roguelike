@@ -30,4 +30,8 @@ public class MonsterAnimationEvent : MonoBehaviour
         }
 
     }
+    public void EndAttack()
+    {
+        monsterMove.isAttacking = false;
+    }
 }

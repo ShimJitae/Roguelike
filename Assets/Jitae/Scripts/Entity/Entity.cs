@@ -54,6 +54,11 @@ public class Entity : MonoBehaviour
 
             StartCoroutine(HitEffect());
         }
+        else if(entityType == EntityType.Boss)
+        {
+
+            StartCoroutine(HitEffect());
+        }
         if (hp <= 0)
         {
             isAlive = false;
