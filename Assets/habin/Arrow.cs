@@ -90,8 +90,6 @@ public class Arrow : MonoBehaviour
     // TODO 화살을 쏜 객체의 태그는 리턴하기 -> 몬스터가 쐈으면 같은 몬스터는 안맞게 혹시 플레이어가 자신이 쏜 화살은 안맞게
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.transform == owner)
-            return;
 
         if (collision.gameObject.CompareTag("Player"))
         {

@@ -12,11 +12,11 @@ public class PlayerAnimationEvent : CharacterAnimationEvent
     
     protected override void spawnSword()
     {
-        Debug.Log("검 이펙트 스폰");
+        base.spawnSword();
 
     }
     protected override void RemoveSword()
     {
-        Debug.Log("검 이펙트 제거");
+        base.RemoveSword();
     }
 }
