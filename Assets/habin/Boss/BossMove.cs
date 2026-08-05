@@ -6,6 +6,7 @@ using UnityEngine;
 public class BossMove : MonoBehaviour
 {
     private Rigidbody2D rb;
+    private CapsuleCollider2D col;
     private Animator an;
     private SpriteRenderer sp;
     private BossAnimController ancon;
@@ -38,6 +39,7 @@ public class BossMove : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         an = GetComponent<Animator>();
         sp = GetComponent<SpriteRenderer>();
+        col = GetComponent<CapsuleCollider2D>();
         ancon = GetComponent<BossAnimController>();
         monsterClass = GetComponent<MonsterClass>();
         if (meleeAttackObject != null)
@@ -48,77 +50,23 @@ public class BossMove : MonoBehaviour
     }
     private void Update()
     {
-        Collider2D detcetPlayer = Physics2D.OverlapCircle(transform.position, detcetRange, playerLayer);
-        Collider2D meleeAttack = Physics2D.OverlapCircle(transform.position, meleeAttackRange, playerLayer);
-        Collider2D rangedAttack = Physics2D.OverlapCircle(transform.position, rangedAttackRange, playerLayer);
-        float heightDifference = Mathf.Abs(player.position.y - transform.position.y);
-        if (isAttacking)
+        if (monsterClass.Hp <= 0)
         {
-            rb.linearVelocity = Vector2.zero;
-            an.SetFloat("IsSpeed", 0f);
-            return;
-        }
-        //몬스터 및 공격 범위의 방향
-        if (player.position.x < transform.position.x)
-        {
+            monsterClass.isAlive = false;
+            ancon.PlayDeath();
+            rb.gravityScale = 0;
+            col.isTrigger = true;
 
-            sp.flipX = true;
         }
-        else if (player.position.x > transform.position.x)
+        else if (monsterClass.isAlive == true)
         {
-            sp.flipX = false;
-        }
-        AttackFlip();
-
-
-        if (attackCount >= 5)
-        {
-            if (Time.time >= nextAttackTime)
-            {
-                StartAttack();
-                ancon.PlayCast();
-                attackCount = 0;
-                nextAttackTime = Time.time + attackCooldown;
-                return;
-            }
-        }
-        if (meleeAttack != null && heightDifference <= maxHeightDifference)
-        {
+            //if (Input.GetKeyDown(KeyCode.Z))
+            //{
+            //    monsterClass.TakeDamage(50);
+            //}
+            BossAlivePlay();
             
-            if (Time.time >= nextAttackTime)
-            {
-                StartAttack();
-                attackCount++;
-                ancon.PlayAttack2();
-                nextAttackTime = Time.time + attackCooldown;
-                return;
-            }
-
         }
-        if (rangedAttack != null && heightDifference <= maxHeightDifference)
-        {
-            
-            if (Time.time >= nextAttackTime)
-            {
-                StartAttack();
-                attackCount++;
-                rb.linearVelocity = Vector2.zero;
-                ancon.PlayAttack();
-                nextAttackTime = Time.time + attackCooldown;
-                return;
-            }
-        }
-
-        if (detcetPlayer != null && heightDifference <= maxHeightDifference)
-        {
-            Vector2 direction = (player.position - transform.position).normalized;
-            rb.linearVelocity = direction * moveSpeed;
-            an.SetFloat("IsSpeed", direction.magnitude);
-            return;
-        }
-        rb.linearVelocity = Vector2.zero;
-        an.SetFloat("IsSpeed", 0f);
-
     }
 
     private void StartAttack()
@@ -126,6 +74,7 @@ public class BossMove : MonoBehaviour
         isAttacking = true;
         rb.linearVelocity = Vector2.zero;
         an.SetFloat("IsSpeed", 0f);
+
     }
     public void EndAttack()
     {
@@ -172,6 +121,80 @@ public class BossMove : MonoBehaviour
         GameObject mag = Instantiate(magObject, magField.position, Quaternion.identity);
         Bossmagical magScript = mag.GetComponent<Bossmagical>();
         magScript.SetDamage(monsterClass.Atk);
+    }
+    public void BossAlivePlay()
+    {
+        Collider2D detcetPlayer = Physics2D.OverlapCircle(transform.position, detcetRange, playerLayer);
+        Collider2D meleeAttack = Physics2D.OverlapCircle(transform.position, meleeAttackRange, playerLayer);
+        Collider2D rangedAttack = Physics2D.OverlapCircle(transform.position, rangedAttackRange, playerLayer);
+        float heightDifference = Mathf.Abs(player.position.y - transform.position.y);
+        if (isAttacking)
+        {
+            rb.linearVelocity = Vector2.zero;
+            an.SetFloat("IsSpeed", 0f);
+            return;
+        }
+        //몬스터 및 공격 범위의 방향
+        if (player.position.x < transform.position.x)
+        {
+
+            sp.flipX = true;
+        }
+        else if (player.position.x > transform.position.x)
+        {
+            sp.flipX = false;
+        }
+        AttackFlip();
+
+
+        if (attackCount >= 5)
+        {
+            if (Time.time >= nextAttackTime)
+            {
+                StartAttack();
+                ancon.PlayCast();
+                attackCount = 0;
+                nextAttackTime = Time.time + attackCooldown;
+                return;
+            }
+        }
+        if (meleeAttack != null && heightDifference <= maxHeightDifference)
+        {
+
+            if (Time.time >= nextAttackTime)
+            {
+                StartAttack();
+                attackCount++;
+                ancon.PlayAttack2();
+                nextAttackTime = Time.time + attackCooldown;
+                return;
+            }
+
+        }
+        if (rangedAttack != null && heightDifference <= maxHeightDifference)
+        {
+
+            if (Time.time >= nextAttackTime)
+            {
+                StartAttack();
+                attackCount++;
+                rb.linearVelocity = Vector2.zero;
+                ancon.PlayAttack();
+                nextAttackTime = Time.time + attackCooldown;
+                return;
+            }
+        }
+
+        if (detcetPlayer != null && heightDifference <= maxHeightDifference)
+        {
+            Vector2 direction = (player.position - transform.position).normalized;
+            rb.linearVelocity = direction * moveSpeed;
+            an.SetFloat("IsSpeed", direction.magnitude);
+            return;
+        }
+        rb.linearVelocity = Vector2.zero;
+        an.SetFloat("IsSpeed", 0f);
+
     }
 
     private void OnDrawGizmos()
