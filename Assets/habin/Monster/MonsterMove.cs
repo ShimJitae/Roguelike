@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class MonsterMove : MonoBehaviour
 {
@@ -198,5 +199,23 @@ public class MonsterMove : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, detcetRange);
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, attackRange);
+    }
+
+    private IEnumerator HitEffect()
+    {
+        Transform unitRoot = transform.Find("UnitRoot");
+        if (unitRoot == null)
+        {
+            yield break;
+        }
+        for (int i = 0; i < 3; i++)
+        {
+            Debug.Log($"{gameObject.name}의 {unitRoot.name} 끄기");
+            unitRoot.gameObject.SetActive(false);
+            yield return new WaitForSeconds(0.5f);
+            Debug.Log($"{gameObject.name}의 {unitRoot.name} 켜기");
+            unitRoot.gameObject.SetActive(true);
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 }
