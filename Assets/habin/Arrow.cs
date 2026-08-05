@@ -36,7 +36,7 @@ public class Arrow : MonoBehaviour
     void Start()
     {
         Init();
-        /*
+
         player = GameObject.FindGameObjectWithTag("Player").transform;
         sp = GetComponent<SpriteRenderer>();
         if (player.position.x < transform.position.x)
@@ -47,10 +47,10 @@ public class Arrow : MonoBehaviour
         {
             sp.flipX = true;
         }
-        
+
         //생성후 destroytimer에 맞춰 사라짐
         Destroy(gameObject, destroytimer);
-        */
+
     }
 
     private void Init()
@@ -75,7 +75,7 @@ public class Arrow : MonoBehaviour
         if (collision.CompareTag(owner.tag))
             return;
 
-        if(collision.CompareTag("Ground"))
+        if (collision.CompareTag("Ground"))
             Destroy(gameObject);
 
         Entity target = collision.GetComponent<Entity>();
@@ -83,7 +83,7 @@ public class Arrow : MonoBehaviour
         target.OnHit?.Invoke(Mathf.Max(0, arrowDamage - target.Def));
         Debug.Log("화살 피격!");
         Destroy(gameObject);
-        
+
 
     }
 
@@ -103,7 +103,7 @@ public class Arrow : MonoBehaviour
 
             Destroy(gameObject);
         }
-        else if (collision.gameObject.CompareTag("Monster")|| collision.gameObject.CompareTag("Wall")|| collision.gameObject.CompareTag("Ground"))
+        else if (collision.gameObject.CompareTag("Monster") || collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Ground"))
         {
             Destroy(gameObject);
         }
