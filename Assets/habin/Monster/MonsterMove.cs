@@ -9,7 +9,7 @@ public class MonsterMove : MonoBehaviour
     private MonsterClass monsterClass;
     [SerializeField] private Transform AttackField;
     private SpriteRenderer[] sp;
-    public   bool isAttacking;
+    public bool isAttacking;
 
     [Header("이동 및 감지")]
     [SerializeField] private float moveSpeed;
@@ -18,6 +18,7 @@ public class MonsterMove : MonoBehaviour
     [SerializeField] private Transform[] movePoints;
     [SerializeField] private float detcetRange;
     [SerializeField] private float attackRange;
+    [SerializeField] private float maxHeightDifference = 1.5f;
 
     [SerializeField] private float attackCooldown = 2f;
     [Header("근접 공격")]
@@ -49,19 +50,21 @@ public class MonsterMove : MonoBehaviour
     {
         Collider2D findPlayer = Physics2D.OverlapCircle(transform.position, detcetRange, playerLayer);
         Collider2D attack = Physics2D.OverlapCircle(transform.position, attackRange, playerLayer);
+        float heightDifference = Mathf.Abs(player.position.y - transform.position.y);
         if (isAttacking == true)
         {
             rb.linearVelocity = Vector2.zero;
             an.SetFloat("IsSpeed", 0f);
             return;
         }
-        if(isAttacking == false)
+        if (isAttacking == false)
         {
             an.SetFloat("IsSpeed", 3f);
         }
         //범위안의 플레이어 추격
-        if (findPlayer != null)
+        if (findPlayer != null && heightDifference <= maxHeightDifference)
         {
+
             if (attack != null)
             {
                 if (Time.time >= nextAttackTime)
@@ -74,7 +77,6 @@ public class MonsterMove : MonoBehaviour
             }
             TrackingPlayer();
             return;
-
         }
         //포인트가 없을때 움직이지 않음
         if (movePoints == null || movePoints.Length == 0)
@@ -94,7 +96,7 @@ public class MonsterMove : MonoBehaviour
             ChangeTargetPoint();
         }
         MonsterFlip();
-        
+
     }
 
     private void StartAttack()

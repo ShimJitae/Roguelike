@@ -18,7 +18,7 @@ public class BossMove : MonoBehaviour
     [SerializeField] public Transform player;
     [SerializeField] private float detcetRange;
     [SerializeField] private float attackCooldown = 2f;
-    [SerializeField] private float saveAttackCooldown;
+    [SerializeField] private float maxHeightDifference = 30.5f;
     [Header("근접 공격")]
     [SerializeField] private float meleeAttackRange;
     [SerializeField] private GameObject meleeAttackObject;
@@ -40,7 +40,6 @@ public class BossMove : MonoBehaviour
         sp = GetComponent<SpriteRenderer>();
         ancon = GetComponent<BossAnimController>();
         monsterClass = GetComponent<MonsterClass>();
-        saveAttackCooldown = attackCooldown;
         if (meleeAttackObject != null)
         {
             bossMeleeAttack = meleeAttackObject.GetComponentInChildren<BossMeleeAttack>(true);
@@ -52,6 +51,7 @@ public class BossMove : MonoBehaviour
         Collider2D detcetPlayer = Physics2D.OverlapCircle(transform.position, detcetRange, playerLayer);
         Collider2D meleeAttack = Physics2D.OverlapCircle(transform.position, meleeAttackRange, playerLayer);
         Collider2D rangedAttack = Physics2D.OverlapCircle(transform.position, rangedAttackRange, playerLayer);
+        float heightDifference = Mathf.Abs(player.position.y - transform.position.y);
         if (isAttacking)
         {
             rb.linearVelocity = Vector2.zero;
@@ -82,7 +82,7 @@ public class BossMove : MonoBehaviour
                 return;
             }
         }
-        if (meleeAttack != null)
+        if (meleeAttack != null && heightDifference <= maxHeightDifference)
         {
             
             if (Time.time >= nextAttackTime)
@@ -95,7 +95,7 @@ public class BossMove : MonoBehaviour
             }
 
         }
-        if (rangedAttack != null)
+        if (rangedAttack != null && heightDifference <= maxHeightDifference)
         {
             
             if (Time.time >= nextAttackTime)
@@ -109,7 +109,7 @@ public class BossMove : MonoBehaviour
             }
         }
 
-        if (detcetPlayer != null)
+        if (detcetPlayer != null && heightDifference <= maxHeightDifference)
         {
             Vector2 direction = (player.position - transform.position).normalized;
             rb.linearVelocity = direction * moveSpeed;
@@ -164,14 +164,8 @@ public class BossMove : MonoBehaviour
         BossRangedAttack arrowScript = swordAura.GetComponent<BossRangedAttack>();
         arrowScript.SetDamage(monsterClass.Atk);
         Rigidbody2D arrowRb = swordAura.GetComponent<Rigidbody2D>();
-        if (sp.flipX == true)
-        {
-            arrowRb.linearVelocity = -swordAuraField.right * swordAuraSpeed;
-        }
-        else if (sp.flipX == false)
-        {
-            arrowRb.linearVelocity = swordAuraField.right * swordAuraSpeed;
-        }
+        Vector2 playerPosition = (player.position - swordAuraField.position).normalized;
+        arrowRb.linearVelocity = playerPosition * swordAuraSpeed;
     }
     public void SpawnMag()
     {
