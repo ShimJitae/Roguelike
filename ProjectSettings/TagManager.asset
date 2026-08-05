@@ -8,6 +8,7 @@ TagManager:
   - Ground
   - Wall
   - Weapon
+  - MinimapIcon
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - Monster
   - Ground
   - Wall
-  - 
+  - MinimapIcon
   - 
   - 
   - 
