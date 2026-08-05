@@ -458,6 +458,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BossHPBarEnabler
   bossUIPrefab: {fileID: 3392323554843498543, guid: 2074648227df0b84cbc96a4a3fb93470, type: 3}
   tweenDuration: 1.35
+--- !u!1 &1903834281
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1903834283}
+  - component: {fileID: 1903834282}
+  m_Layer: 0
+  m_Name: MinimapCreator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1903834282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903834281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0834a444dd1069f41925e2c368b64777, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MinimapCreator
+  minimapCamaraPrefab: {fileID: 1935601007}
+  icon_Player: {fileID: 7738371121232774069}
+  icon_Monster: {fileID: 7341224814404000531}
+  icon_Ground: {fileID: 2053880478985399881}
+--- !u!4 &1903834283
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903834281}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1935601007
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,7 +516,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1935601011}
   - component: {fileID: 1935601010}
-  - component: {fileID: 1935601009}
   - component: {fileID: 1935601008}
   m_Layer: 0
   m_Name: MinimapCamera
@@ -521,14 +568,6 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!81 &1935601009
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1935601007}
-  m_Enabled: 1
 --- !u!20 &1935601010
 Camera:
   m_ObjectHideFlags: 0
@@ -538,8 +577,8 @@ Camera:
   m_GameObject: {fileID: 1935601007}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 4
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.2264151, g: 0.2264151, b: 0.2264151, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -564,11 +603,11 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 12.807506
+  orthographic size: 10
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 512
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 1cb752989057123449079d3193695deb, type: 2}
   m_TargetDisplay: 0
@@ -647,11 +686,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9177375499970924995, guid: b1c69a7d9e5dc9d4ab0337ba9487ec40, type: 3}
+      propertyPath: m_Color.a
+      value: 0.49019608
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1c69a7d9e5dc9d4ab0337ba9487ec40, type: 3}
+--- !u!1 &2053880478985399881 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1726455633760714274, guid: b1c69a7d9e5dc9d4ab0337ba9487ec40, type: 3}
+  m_PrefabInstance: {fileID: 2053880478985399880}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7341224814404000530
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -663,6 +711,10 @@ PrefabInstance:
     - target: {fileID: 2324449767600361026, guid: 073c13f6007f9914a960d93a2ebb300d, type: 3}
       propertyPath: m_Name
       value: Icon_Monster
+      objectReference: {fileID: 0}
+    - target: {fileID: 4834529001581758909, guid: 073c13f6007f9914a960d93a2ebb300d, type: 3}
+      propertyPath: m_Color.a
+      value: 0.49019608
       objectReference: {fileID: 0}
     - target: {fileID: 7433476527354857912, guid: 073c13f6007f9914a960d93a2ebb300d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -709,6 +761,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 073c13f6007f9914a960d93a2ebb300d, type: 3}
+--- !u!1 &7341224814404000531 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2324449767600361026, guid: 073c13f6007f9914a960d93a2ebb300d, type: 3}
+  m_PrefabInstance: {fileID: 7341224814404000530}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7738371121232774068
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -717,6 +774,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4212167097134474640, guid: d1f259acc20fc754a84b8819e4ed5ed4, type: 3}
+      propertyPath: m_Color.a
+      value: 0.49019608
+      objectReference: {fileID: 0}
     - target: {fileID: 7278234102091699707, guid: d1f259acc20fc754a84b8819e4ed5ed4, type: 3}
       propertyPath: m_Name
       value: Icon_Player
@@ -766,6 +827,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1f259acc20fc754a84b8819e4ed5ed4, type: 3}
+--- !u!1 &7738371121232774069 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7278234102091699707, guid: d1f259acc20fc754a84b8819e4ed5ed4, type: 3}
+  m_PrefabInstance: {fileID: 7738371121232774068}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -777,3 +843,4 @@ SceneRoots:
   - {fileID: 7738371121232774068}
   - {fileID: 7341224814404000530}
   - {fileID: 2053880478985399880}
+  - {fileID: 1903834283}
