@@ -74,6 +74,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    
+
     public void OnAttack(InputValue value)
     {
         anim.Attack();
@@ -169,6 +171,8 @@ public class PlayerController : MonoBehaviour
             isWallSliding = false;
         }
     }
+
+    
 
 
     private void FixedUpdate()

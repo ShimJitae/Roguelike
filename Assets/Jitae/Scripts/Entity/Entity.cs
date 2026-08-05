@@ -45,11 +45,11 @@ public class Entity : MonoBehaviour
     public void TakeDamage(float damageValue)
     {
         hp -= damageValue;
-        if(entityType == EntityType.Monster)
+        if (entityType == EntityType.Monster)
         {
             StartCoroutine(HitEffect());
         }
-        else if(entityType == EntityType.Player)
+        else if (entityType == EntityType.Player)
         {
 
             StartCoroutine(HitEffect());

@@ -34,7 +34,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Grap",
+                    "name": "Swap",
                     "type": "Button",
                     "id": "26b43fcb-072a-423d-9cb1-f329aab1af26",
                     "expectedControlType": "",
@@ -168,11 +168,11 @@
                 {
                     "name": "",
                     "id": "70d8fa62-2905-4e14-b559-947792d30a12",
-                    "path": "<Keyboard>/leftShift",
+                    "path": "<Keyboard>/ctrl",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Grap",
+                    "action": "Swap",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
