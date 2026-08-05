@@ -1,33 +1,30 @@
 using UnityEngine;
 
-public class Arrow : MonoBehaviour
+public class BossRangedAttack : MonoBehaviour
 {
-    private SpriteRenderer sp;
     [SerializeField] private float destroytimer = 10f;
     [SerializeField] private Transform player;
-    private float arrowDamage;
-    void Start()
+    private float Damage;
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        sp = GetComponent<SpriteRenderer>();
         if (player.position.x < transform.position.x)
         {
-            sp.flipX = false;
+            transform.localScale = new Vector3(-0.5f,0.5f);
         }
-        if (player.position.x > transform.position.x)
+        else if (player.position.x > transform.position.x)
         {
-            sp.flipX = true;
+            transform.localScale = new Vector3(0.5f, 0.5f);
         }
-        //생성후 destroytimer에 맞춰 사라짐
         Destroy(gameObject, destroytimer);
 
     }
     public void SetDamage(float attack)
     {
-        arrowDamage = attack;
+        Damage = attack;
     }
-
-
+    // Update is called once per frame
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -35,14 +32,13 @@ public class Arrow : MonoBehaviour
             PlayerClass playerClass = collision.gameObject.GetComponent<PlayerClass>();
             if (playerClass != null)
             {
-                playerClass.OnHit?.Invoke(Mathf.Max(0, arrowDamage - playerClass.Def));
+                playerClass.OnHit?.Invoke(Mathf.Max(0, Damage - playerClass.Def));
                 Debug.Log($"남은 채력{playerClass.Hp}");
                 Destroy(gameObject);
             }
-
             Destroy(gameObject);
         }
-        else if (collision.gameObject.CompareTag("Monster")|| collision.gameObject.CompareTag("Wall")|| collision.gameObject.CompareTag("Ground"))
+        else if (collision.gameObject.CompareTag("Monster") || collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Ground"))
         {
             Destroy(gameObject);
         }

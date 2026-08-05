@@ -9,7 +9,6 @@ public class MonsterClass : Entity
     private string monsterName;
     private float monsterBodyAttack;
     private float monsterExp;
-    private bool isAlive;
     private void Awake()
     {
         entityType = EntityType.Monster;

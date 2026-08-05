@@ -237,11 +237,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1444787693851412866, guid: 93466c5be99bc2846bd8f0d0482b3224, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -8.11
+      value: -8.29
       objectReference: {fileID: 0}
     - target: {fileID: 1444787693851412866, guid: 93466c5be99bc2846bd8f0d0482b3224, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -6.1
+      value: -2.72
       objectReference: {fileID: 0}
     - target: {fileID: 1444787693851412866, guid: 93466c5be99bc2846bd8f0d0482b3224, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -693,9 +693,10 @@ GameObject:
   - component: {fileID: 512318838}
   - component: {fileID: 512318837}
   - component: {fileID: 512318836}
-  m_Layer: 0
+  - component: {fileID: 512318839}
+  m_Layer: 6
   m_Name: BossSkeletonKing
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -734,8 +735,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 80
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.38, y: 0.86}
+  m_Offset: {x: 0.02, y: -0.01}
+  m_Size: {x: 0.38, y: 0.71}
   m_Direction: 0
 --- !u!50 &512318832
 Rigidbody2D:
@@ -854,10 +855,11 @@ Transform:
   m_GameObject: {fileID: 512318830}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.02, y: -1.38, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 1}
+  m_LocalPosition: {x: 0, y: -2, z: 0}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 931655567}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &512318836
@@ -906,16 +908,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossMove
   AttackField: {fileID: 0}
-  moveSpeed: 0
+  moveSpeed: 3
   playerLayer:
     serializedVersion: 2
-    m_Bits: 0
-  player: {fileID: 0}
-  attackRange: 5
+    m_Bits: 8
+  player: {fileID: 1959863013}
+  detcetRange: 5
   attackCooldown: 2
-  prickObject: {fileID: 0}
+  meleeAttackRange: 3
+  meleeAttackObject: {fileID: 0}
+  rangedAttackRange: 0
   swordAuraObject: {fileID: 0}
   swordAuraSpeed: 0
+--- !u!114 &512318839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 512318830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53fb430d5db5da543b52e13cbf1b2e81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossAnimController
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1168,6 +1184,97 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &931655566
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 931655567}
+  - component: {fileID: 931655568}
+  - component: {fileID: 931655569}
+  m_Layer: 0
+  m_Name: BossMeleeAttackField
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &931655567
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931655566}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.5, y: 0, z: 0}
+  m_LocalScale: {x: 0.33333334, y: 0.33333334, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 512318835}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &931655568
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931655566}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 2, y: 2}
+  m_EdgeRadius: 0
+--- !u!114 &931655569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931655566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca3709ad89f5d5349a2483a95923c855, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossMeleeAttack
 --- !u!224 &1044496506 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1936928448817744819, guid: 11a3b4b686702914f88f93d565099d9b, type: 3}
@@ -1819,7 +1926,7 @@ SceneRoots:
   - {fileID: 4007085528913931692}
   - {fileID: 1774592998}
   - {fileID: 305610782}
-  - {fileID: 188615687}
   - {fileID: 715929965}
   - {fileID: 1652622290}
   - {fileID: 512318835}
+  - {fileID: 188615687}
