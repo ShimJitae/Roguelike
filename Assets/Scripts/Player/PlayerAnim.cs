@@ -6,15 +6,18 @@ public class PlayerAnim : MonoBehaviour
 {
     private SPUM_Prefabs spumPrefabs;
     private PlayerController move;
-    
+    private WeaponSwap weaponSwap;
+
+
     [SerializeField] private PlayerState currentState = PlayerState.IDLE;
-    private bool isAttacking;
+    public bool isAttacking;
     private bool previousFlipState;
 
     private void Awake()
     {
         spumPrefabs = GetComponentInParent<SPUM_Prefabs>();
         move = GetComponentInParent<PlayerController>();
+        weaponSwap = GetComponentInParent<WeaponSwap>();
     }
 
     void Start()
@@ -78,9 +81,20 @@ public class PlayerAnim : MonoBehaviour
     {
         if (isAttacking)
             return;
+
         isAttacking = true;
         currentState = PlayerState.ATTACK;
-        spumPrefabs.PlayAnimation(currentState, 0);
+
+        switch (weaponSwap.weaponType)
+        {
+            case WeaponType.Sword:
+                spumPrefabs.PlayAnimation(currentState, 0);
+                break;
+            case WeaponType.Bow:
+                spumPrefabs.PlayAnimation(currentState, 2);
+                break;
+
+        }
     }
 
     // 애니메이션 이벤트로 호출될 메서드
@@ -105,6 +119,6 @@ public class PlayerAnim : MonoBehaviour
     }
 
 
-    //TODO 사망시 애니메이션 추가해야함 (피격시는 일단 스프라이트 색 반짝이기 정도로 할까 생각중)
+    //TODO 사망시 애니메이션 추가해야함
 
 }
