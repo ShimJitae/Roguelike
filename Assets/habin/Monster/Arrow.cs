@@ -85,7 +85,11 @@ public class Arrow : MonoBehaviour
             
 
         Entity target = collision.GetComponent<Entity>();
-
+        if(target == null)
+        {
+            Debug.Log("타겟이 없음");
+            return;
+        }
         target.OnHit?.Invoke(Mathf.Max(0, arrowDamage - target.Def));
         Debug.Log("화살 피격!");
         Destroy(gameObject);
