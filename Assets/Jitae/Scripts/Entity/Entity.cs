@@ -17,6 +17,8 @@ public class Entity : MonoBehaviour
     public float Atk => atk;
     [SerializeField] protected float def;
     public float Def => def;
+    [SerializeField] protected int money;
+    public int Money => money;
     public bool isAlive => hp > 0;
     
     /*
@@ -74,7 +76,16 @@ public class Entity : MonoBehaviour
     {
         targetEntity.OnHit?.Invoke(damage);
     }
-    
+    public void UpMoney(int moneyValue)
+    {
+        money += moneyValue;
+    }
+    public void DownMoney(int moneyValue)
+    {
+        money -= moneyValue;
+    }
+
+
     private IEnumerator HitEffect()
     {
         Transform root = transform.GetChild(0).GetChild(0);

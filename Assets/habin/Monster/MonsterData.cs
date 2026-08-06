@@ -17,6 +17,7 @@ public class MonsterData : ScriptableObject
     [SerializeField] private float monsterBodyAttack;
     [SerializeField] private float monsterDefense;
     [SerializeField] private float monsterExp;
+    [SerializeField] private int monsterMoney;
 
     public string MonsterId => monsterId;
     public MonsterAttackType AttackType => attackType;
@@ -26,6 +27,7 @@ public class MonsterData : ScriptableObject
     public float BodyAttack => monsterBodyAttack;
     public float Defense => monsterDefense;
     public float Exp => monsterExp;
+    public int Money => monsterMoney;
 
 
 }

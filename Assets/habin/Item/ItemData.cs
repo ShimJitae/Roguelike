@@ -4,7 +4,8 @@ public enum ItemType
 {
     Weapon,
     Armor,
-    Potion
+    Potion,
+    Etc
 }
 [CreateAssetMenu(menuName = "Game Data/Item Data")]
 public class ItemData : ScriptableObject
@@ -25,4 +26,6 @@ public class ItemData : ScriptableObject
     public float ItemDef => itemDef;
     [SerializeField] private string detail;
     public string Detail => detail;
+    [SerializeField] private int etcValue;
+    public int EtcVolume => etcValue;
 }

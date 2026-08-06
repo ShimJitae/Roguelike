@@ -23,13 +23,13 @@ public class MonsterClass : Entity
         monsterName = monsterData.MonsterName;
         monsterBodyAttack = monsterData.BodyAttack;
         monsterExp = monsterData.Exp;
+        money = monsterData.Money;
     }
     public void PlayerAttack()
     {
         Debug.Log("MonsterAttack!");
         if (attackType == MonsterAttackType.ranged)
         {
-
             ancon.PlayAttackBow();
             return;
         }
