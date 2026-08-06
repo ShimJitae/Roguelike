@@ -20,6 +20,7 @@ public class MonsterMove : MonoBehaviour
     [SerializeField] private float detcetRange;
     [SerializeField] private float attackRange;
     [SerializeField] private float maxHeightDifference = 1.5f;
+    [SerializeField] private Transform unitRoot;
 
     [SerializeField] private float attackCooldown = 2f;
     [Header("근접 공격")]
@@ -37,7 +38,7 @@ public class MonsterMove : MonoBehaviour
         monsterClass = GetComponent<MonsterClass>();
         rb = GetComponent<Rigidbody2D>();
         ancon = GetComponent<CharacterAnimController>();
-        Transform unitRoot = transform.Find("UnitRoot");
+        unitRoot = transform.Find("UnitRoot");
         an = unitRoot.GetComponent<Animator>();
         swordAttack = GetComponent<SwordAttack>();
         if (swordObject != null)
@@ -49,15 +50,12 @@ public class MonsterMove : MonoBehaviour
 
     void Update()
     {
-        if (monsterClass.Hp <= 0)
+        if (!monsterClass.isAlive)
         {
-            monsterClass.isAlive = false;
+            return;
+        }
+        MonsterAlivePlay();
 
-        }
-        else if (monsterClass.isAlive == true)
-        {
-            MonsterAlivePlay();
-        }
     }
 
     private void StartAttack()
@@ -66,48 +64,20 @@ public class MonsterMove : MonoBehaviour
         rb.linearVelocity = Vector2.zero;
         an.SetFloat("IsSpeed", 0f);
     }
-    public void SpawnSword()
-    {
-        swordObject.SetActive(true);
-        //검공격에 대미지 저장
-        swordAttack.SetDamage(monsterClass.Atk);
-    }
-    public void RemoveSword()
-    {
-        swordObject.SetActive(false);
 
-    }
-    public void SpawnArrow()
-    {
-        //화살 생성
-        GameObject arrow = Instantiate(arrowObject, AttackField.position, Quaternion.identity);
-        Arrow arrowScript = arrow.GetComponent<Arrow>();
-        arrowScript.SetDamage(monsterClass.Atk);
-        Rigidbody2D arrowRb = arrow.GetComponent<Rigidbody2D>();
-        if (AttackField.localPosition.x == -0.5f)
-        {
-            arrowRb.linearVelocity = -AttackField.right * arrowSpeed;
-        }
-        else if (AttackField.localPosition.x == 0.5f)
-        {
-            arrowRb.linearVelocity = AttackField.right * arrowSpeed;
-        }
-    }
     private void TrackingPlayer()
     {
         Vector2 direction = (player.position - transform.position).normalized;
         rb.linearVelocity = direction * moveSpeed;
         if (player.position.x < transform.position.x)
         {
-            Transform unitRoot = transform.Find("UnitRoot");
             unitRoot.localScale = new Vector3(1, 1, 1);
-            AttackField.localPosition = new Vector3(-0.5f, 0.2f);
+            //AttackField.localPosition = new Vector3(-0.5f, 0.2f);
         }
         else if (player.position.x > transform.position.x)
         {
-            Transform unitRoot = transform.Find("UnitRoot");
             unitRoot.localScale = new Vector3(-1, 1, 1);
-            AttackField.localPosition = new Vector2(0.5f, 0.2f);
+            //AttackField.localPosition = new Vector2(0.5f, 0.2f);
         }
 
     }
@@ -116,14 +86,10 @@ public class MonsterMove : MonoBehaviour
     {
         if (currentIndex == 0)
         {
-            Transform unitRoot = transform.Find("UnitRoot");
-
             unitRoot.localScale = new Vector3(1, 1, 1);
         }
         else if (currentIndex == 1)
         {
-            Transform unitRoot = transform.Find("UnitRoot");
-
             unitRoot.localScale = new Vector3(-1, 1, 1);
         }
     }
@@ -199,23 +165,5 @@ public class MonsterMove : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, detcetRange);
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, attackRange);
-    }
-
-    private IEnumerator HitEffect()
-    {
-        Transform unitRoot = transform.Find("UnitRoot");
-        if (unitRoot == null)
-        {
-            yield break;
-        }
-        for (int i = 0; i < 3; i++)
-        {
-            Debug.Log($"{gameObject.name}의 {unitRoot.name} 끄기");
-            unitRoot.gameObject.SetActive(false);
-            yield return new WaitForSeconds(0.5f);
-            Debug.Log($"{gameObject.name}의 {unitRoot.name} 켜기");
-            unitRoot.gameObject.SetActive(true);
-            yield return new WaitForSeconds(0.5f);
-        }
     }
 }

@@ -36,7 +36,7 @@ public class Arrow : MonoBehaviour
     void Start()
     {
         Init();
-
+        /*
         player = GameObject.FindGameObjectWithTag("Player").transform;
         sp = GetComponent<SpriteRenderer>();
         if (player.position.x < transform.position.x)
@@ -50,6 +50,7 @@ public class Arrow : MonoBehaviour
 
         //생성후 destroytimer에 맞춰 사라짐
         Destroy(gameObject, destroytimer);
+        */
 
     }
 
@@ -71,6 +72,7 @@ public class Arrow : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("화살 트리거 in");
         //같은 팀은 때리지 않는다.
         if (collision.CompareTag(owner.tag))
             return;
@@ -84,28 +86,5 @@ public class Arrow : MonoBehaviour
         Debug.Log("화살 피격!");
         Destroy(gameObject);
 
-
-    }
-
-    // TODO 화살을 쏜 객체의 태그는 리턴하기 -> 몬스터가 쐈으면 같은 몬스터는 안맞게 혹시 플레이어가 자신이 쏜 화살은 안맞게
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            PlayerClass playerClass = collision.gameObject.GetComponent<PlayerClass>();
-            if (playerClass != null)
-            {
-                playerClass.OnHit?.Invoke(Mathf.Max(0, arrowDamage - playerClass.Def));
-                Debug.Log($"남은 채력{playerClass.Hp}");
-                Destroy(gameObject);
-            }
-
-            Destroy(gameObject);
-        }
-        else if (collision.gameObject.CompareTag("Monster") || collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Ground"))
-        {
-            Destroy(gameObject);
-        }
     }
 }

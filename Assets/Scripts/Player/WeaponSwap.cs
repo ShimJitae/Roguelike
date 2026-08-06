@@ -33,7 +33,8 @@ public class WeaponSwap : MonoBehaviour
 
     void Start()
     {
-
+        //TODO Find 안쓰고 하면 좋지않을까?
+        //panel = GameObject.Find("WeaponPanel").GetComponent<WeaponPanel>();
     }
 
 
