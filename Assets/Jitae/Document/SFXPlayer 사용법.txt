@@ -1,0 +1,3 @@
+1. 효과음을 실행시킬 오브젝트에 SFXPlayer 컴포넌트를 붙여준다.
+2. 어떤 종류의 효과음을 실행시킬지 설정해준다.
+3. 원하는 위치에 GetComponent<SFXPlayer>().PlaySFX()를 실행해준다.
