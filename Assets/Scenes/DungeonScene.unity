@@ -2329,6 +2329,11 @@ Transform:
   - {fileID: 928648610}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &378708419 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3452990973244145750, guid: 9b60d6fb9bf33e248922ff7b0e52afea, type: 3}
+  m_PrefabInstance: {fileID: 899121598}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &487974970
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2965,6 +2970,10 @@ PrefabInstance:
     - target: {fileID: 3452990973244145750, guid: 9b60d6fb9bf33e248922ff7b0e52afea, type: 3}
       propertyPath: m_Name
       value: BossSkeletonKing
+      objectReference: {fileID: 0}
+    - target: {fileID: 3452990973244145750, guid: 9b60d6fb9bf33e248922ff7b0e52afea, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6400209036659151815, guid: 9b60d6fb9bf33e248922ff7b0e52afea, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9884,7 +9893,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7676656365257451602, guid: d6ec539a76f1e024aa066f4710b50a0d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2131936628}
   m_SourcePrefab: {fileID: 100100000, guid: d6ec539a76f1e024aa066f4710b50a0d, type: 3}
 --- !u!1 &1145452359
 GameObject:
@@ -10053,6 +10065,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5004548517266501044, guid: ba07331ce0f18e2429d59f4bdd6a861e, type: 3}
+      propertyPath: bossMob
+      value: 
+      objectReference: {fileID: 378708419}
     - target: {fileID: 5004548517266501044, guid: ba07331ce0f18e2429d59f4bdd6a861e, type: 3}
       propertyPath: portalMovePoint
       value: 
@@ -12142,6 +12158,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5004548517266501044, guid: ba07331ce0f18e2429d59f4bdd6a861e, type: 3}
+      propertyPath: bossMob
+      value: 
+      objectReference: {fileID: 378708419}
     - target: {fileID: 5004548517266501044, guid: ba07331ce0f18e2429d59f4bdd6a861e, type: 3}
       propertyPath: fildMobCount
       value: 1
@@ -23222,6 +23242,24 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &2131936617 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7676656365257451602, guid: d6ec539a76f1e024aa066f4710b50a0d, type: 3}
+  m_PrefabInstance: {fileID: 1089511329}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2131936628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131936617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 217d194d9ac5aab48ab614e20563434c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MenuToggler
+  menuCanvasPrefab: {fileID: 54551364217061612, guid: 4341d71c2cbbc1e4f976d4384b748ab1, type: 3}
 --- !u!1001 &6684949402020894012
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23237,6 +23275,10 @@ PrefabInstance:
     - target: {fileID: 1326169563983400705, guid: 1af1e09302c53f645a773baaa214886e, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2787267880834295716, guid: 1af1e09302c53f645a773baaa214886e, type: 3}
+      propertyPath: dropChance
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6889162349695649234, guid: 1af1e09302c53f645a773baaa214886e, type: 3}
       propertyPath: m_Pivot.x
