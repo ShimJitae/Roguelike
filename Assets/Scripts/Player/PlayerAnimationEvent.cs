@@ -19,4 +19,11 @@ public class PlayerAnimationEvent : CharacterAnimationEvent
     {
         base.RemoveSword();
     }
+
+    protected void OnDeath()
+    {
+        //TODO 로비씬으로 화면 전환 - 페이드인 페이드아웃
+        // 그리고 플레이어 초기화
+        SceneLoadManager.Instance.LoadScene("TitleScene");
+    }
 }
