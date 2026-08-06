@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.Collections;
+using System.Net;
 
 
 // 몬스터/플레이어는 모두 HP 게이지를 가지고 있어야 하므로, Entity 클래스에서 HP 게이지를 관리하도록 합니다.
@@ -9,6 +10,7 @@ public class Entity : MonoBehaviour
 {
     private SpriteRenderer[] spriteRenderers;
     protected EntityType entityType;
+    protected MonsterAttackType attackType;
     [SerializeField] protected float maxHp;
     public float MaxHp => maxHp;
     [SerializeField] protected float hp;
@@ -42,19 +44,19 @@ public class Entity : MonoBehaviour
     }
 
     // 데미지를 받는 메서드
-    public void TakeDamage(float damageValue)
+    public virtual void TakeDamage(float damageValue)
     {
         hp -= damageValue;
-        if (entityType == EntityType.Monster)
+
+        if(attackType == MonsterAttackType.Boss)
+        {
+            StartCoroutine(BossHitEffect());
+        }
+        else if(entityType == EntityType.Monster && attackType != MonsterAttackType.Boss)
         {
             StartCoroutine(HitEffect());
         }
         else if (entityType == EntityType.Player)
-        {
-
-            StartCoroutine(HitEffect());
-        }
-        else if(entityType == EntityType.Boss)
         {
 
             StartCoroutine(HitEffect());
@@ -75,9 +77,10 @@ public class Entity : MonoBehaviour
         targetEntity.OnHit?.Invoke(damage);
     }
     
-    private IEnumerator HitEffect()
+    protected virtual IEnumerator HitEffect()
     {
         Transform root = transform.GetChild(0).GetChild(0);
+
         if (root == null)
         {
             yield break;
@@ -91,4 +94,20 @@ public class Entity : MonoBehaviour
         }
     }
 
+    protected virtual IEnumerator BossHitEffect()
+    {
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        CapsuleCollider2D coll = GetComponent<CapsuleCollider2D>();
+
+
+        for (int i = 0; i < 3; i++)
+        {
+            sr.enabled = false;
+            coll.enabled = false;
+            yield return new WaitForSeconds(0.05f);
+            sr.enabled = true;
+            coll.enabled = true;
+            yield return new WaitForSeconds(0.05f);
+        }
+    }
 }
