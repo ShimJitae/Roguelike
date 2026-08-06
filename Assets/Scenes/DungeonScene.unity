@@ -9916,10 +9916,29 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7676656365257451602, guid: d6ec539a76f1e024aa066f4710b50a0d, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 7100759531442836208, guid: d6ec539a76f1e024aa066f4710b50a0d, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2131936628}
+      addedObject: {fileID: 1089511331}
   m_SourcePrefab: {fileID: 100100000, guid: d6ec539a76f1e024aa066f4710b50a0d, type: 3}
+--- !u!1 &1089511330 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7100759531442836208, guid: d6ec539a76f1e024aa066f4710b50a0d, type: 3}
+  m_PrefabInstance: {fileID: 1089511329}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1089511331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1089511330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8584dbe8f3a5e9f478a9274b45830e58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SFXPlayer
+  sfxType: 1
+  playOnAwake: 0
 --- !u!1 &1145452359
 GameObject:
   m_ObjectHideFlags: 0
@@ -14288,6 +14307,155 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &1917892760
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1917892763}
+  - component: {fileID: 1917892762}
+  - component: {fileID: 1917892761}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &1917892761
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1917892760}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.409
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &1917892762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1917892760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6705694e706015469580e01b3a0acd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundManager
+  bgm_Title: {fileID: 8300000, guid: ffc281a1962acd049883722bbbc908fa, type: 3}
+  bgm_Normal: {fileID: 8300000, guid: c38925b2f90cbf94ea8234665bb60f11, type: 3}
+  bgm_Boss: {fileID: 8300000, guid: 86acf5ee7327bfa41968be1c10f64d6d, type: 3}
+  sfx_OnHit: {fileID: 8300000, guid: 6f5fe11b0da61164ca7291bab72af8c3, type: 3}
+  sfx_Guen: {fileID: 8300000, guid: 3f520b3df355dda479e94c5399b0a1ef, type: 3}
+  sfx_One: {fileID: 8300000, guid: 60d8bfd892dd3044aa68b3fe37c12eb9, type: 3}
+  sfx_Ma: {fileID: 8300000, guid: 655ed2b158eeabe44863725b6d21da9a, type: 3}
+--- !u!4 &1917892763
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1917892760}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1930069556
 GameObject:
   m_ObjectHideFlags: 0
@@ -23264,24 +23432,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!1 &2131936617 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7676656365257451602, guid: d6ec539a76f1e024aa066f4710b50a0d, type: 3}
-  m_PrefabInstance: {fileID: 1089511329}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2131936628
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2131936617}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 217d194d9ac5aab48ab614e20563434c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MenuToggler
-  menuCanvasPrefab: {fileID: 54551364217061612, guid: 4341d71c2cbbc1e4f976d4384b748ab1, type: 3}
 --- !u!1001 &6684949402020894012
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23428,3 +23578,4 @@ SceneRoots:
   - {fileID: 899121598}
   - {fileID: 1089511329}
   - {fileID: 1658172280}
+  - {fileID: 1917892763}

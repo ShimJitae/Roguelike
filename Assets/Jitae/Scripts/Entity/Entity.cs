@@ -20,7 +20,8 @@ public class Entity : MonoBehaviour
     [SerializeField] protected float def;
     public float Def => def;
     public bool isAlive => hp > 0;
-    
+
+    SFXPlayer sfxPlayer;
     /*
     다른 개체에게 공격을 당했을 때, 실행시킬 이벤트
     Entity 클래스에서는 HP 감소에 대한 이벤트를 정의
@@ -28,19 +29,30 @@ public class Entity : MonoBehaviour
     OnHit의 매개변수 float는 받는 데미지
     */
     public Action<float> OnHit;
-    private void Awake()
+    protected virtual void Awake()
     {
+        if (sfxPlayer == null)
+        {
+            gameObject.AddComponent<SFXPlayer>();
+        }
+        sfxPlayer = GetComponent<SFXPlayer>();
+
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
     }
+
     private void OnEnable()
     {
         // 실제 체력 데이터 값 감소
         OnHit += TakeDamage;
+
+        OnHit += sfxPlayer.PlaySFX;
     }
 
     private void OnDisable()
     {
         OnHit -= TakeDamage;
+
+        OnHit -= sfxPlayer.PlaySFX;
     }
 
     // 데미지를 받는 메서드

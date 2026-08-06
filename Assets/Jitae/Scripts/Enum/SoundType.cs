@@ -13,5 +13,4 @@ public enum SFXType
     Guen,
     One,
     Ma,
-    Portal
 }

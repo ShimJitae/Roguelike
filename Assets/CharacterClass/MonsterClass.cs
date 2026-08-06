@@ -9,8 +9,10 @@ public class MonsterClass : Entity
     protected float monsterBodyAttack;
     public float MonsterBodyAttack => monsterBodyAttack;
     private float monsterExp;
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         entityType = EntityType.Monster;
         ancon = GetComponent<CharacterAnimController>();
         maxHp = monsterData.MaxHp;
