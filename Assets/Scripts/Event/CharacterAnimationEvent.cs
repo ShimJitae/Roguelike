@@ -62,7 +62,8 @@ public class CharacterAnimationEvent : MonoBehaviour
     protected virtual void RemoveSword()
     {
         Debug.Log("검 이펙트 제거");
-        swordObj.SetActive(false);
+        if(swordObj != null)
+            swordObj.SetActive(false);
     }
     protected virtual void OnDeath()
     {
