@@ -10,6 +10,7 @@ public class MonsterMove : MonoBehaviour
     private MonsterClass monsterClass;
     [SerializeField] private Transform AttackField;
     private SpriteRenderer[] sp;
+    private CapsuleCollider2D col;
     public bool isAttacking;
 
     [Header("이동 및 감지")]
@@ -28,6 +29,8 @@ public class MonsterMove : MonoBehaviour
     [Header("원거리 공격")]
     [SerializeField] private GameObject arrowObject;
     [SerializeField] private float arrowSpeed;
+    
+
     private float nextAttackTime { get; set; }
 
     private int currentIndex = 0;
@@ -35,6 +38,7 @@ public class MonsterMove : MonoBehaviour
     private void Awake()
     {
         sp = GetComponentsInChildren<SpriteRenderer>();
+        col = GetComponent<CapsuleCollider2D>();
         monsterClass = GetComponent<MonsterClass>();
         rb = GetComponent<Rigidbody2D>();
         ancon = GetComponent<CharacterAnimController>();
@@ -45,13 +49,21 @@ public class MonsterMove : MonoBehaviour
         {
             swordAttack = swordObject.GetComponentInChildren<SwordAttack>(true);
         }
-
+    }
+    private void Start()
+    {
+        
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     void Update()
     {
         if (!monsterClass.isAlive)
         {
+
+            col.isTrigger = true;
+            rb.gravityScale = 0;
+            ancon.PlayDeath();
             return;
         }
         MonsterAlivePlay();
@@ -156,6 +168,15 @@ public class MonsterMove : MonoBehaviour
         }
         MonsterFlip();
 
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (!collision.gameObject.CompareTag("Player"))
+        {
+            return;
+        }
+        PlayerClass playerclass = collision.gameObject.GetComponent<PlayerClass>();
+        monsterClass.OnHit?.Invoke(Mathf.Max(0, monsterClass.MonsterBodyAttack - playerclass.Def));
     }
 
 

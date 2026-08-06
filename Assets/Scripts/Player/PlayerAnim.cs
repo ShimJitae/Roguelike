@@ -6,6 +6,7 @@ public class PlayerAnim : MonoBehaviour
 {
     private SPUM_Prefabs spumPrefabs;
     private PlayerController move;
+    
     private WeaponSwap weaponSwap;
 
 
@@ -95,6 +96,17 @@ public class PlayerAnim : MonoBehaviour
                 break;
 
         }
+    }
+
+    public void Death()
+    {
+        if (currentState == PlayerState.DEATH)
+            return;
+
+        Debug.Log("죽음 애니메이션 재생");
+        currentState = PlayerState.DEATH;
+
+        spumPrefabs.PlayAnimation(currentState, 0);
     }
 
     // 애니메이션 이벤트로 호출될 메서드

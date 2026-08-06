@@ -7,7 +7,8 @@ public class MonsterClass : Entity
     private string monsterId;
     private MonsterAttackType attackType;
     private string monsterName;
-    private float monsterBodyAttack;
+    protected float monsterBodyAttack;
+    public float MonsterBodyAttack => monsterBodyAttack;
     private float monsterExp;
     private void Awake()
     {

@@ -78,7 +78,11 @@ public class Arrow : MonoBehaviour
             return;
 
         if (collision.CompareTag("Ground"))
+        {
             Destroy(gameObject);
+            return;
+        }
+            
 
         Entity target = collision.GetComponent<Entity>();
 
