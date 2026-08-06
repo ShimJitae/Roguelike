@@ -64,5 +64,14 @@ public class CharacterAnimationEvent : MonoBehaviour
         Debug.Log("검 이펙트 제거");
         swordObj.SetActive(false);
     }
+    protected virtual void OnDeath()
+    {
+
+    }
+    protected virtual void DropItem()
+    {
+        
+    }
+
 
 }
