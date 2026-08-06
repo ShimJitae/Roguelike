@@ -6,7 +6,7 @@ public class SFXPlayer : MonoBehaviour
     [SerializeField] SFXType sfxType;
     [SerializeField] bool playOnAwake;
 
-    void Awake()
+    void OnEnable()
     {
         if (playOnAwake)
         {

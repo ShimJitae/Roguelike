@@ -36,6 +36,7 @@ public class BossMove : MonoBehaviour
     private float nextAttackTime { get; set; }
     private int attackCount = 0;
     private bool isDeath = false;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -48,7 +49,6 @@ public class BossMove : MonoBehaviour
         {
             bossMeleeAttack = meleeAttackObject.GetComponentInChildren<BossMeleeAttack>(true);
         }
-
     }
     private void Start()
     {
@@ -103,6 +103,7 @@ public class BossMove : MonoBehaviour
     }
     public void SpawnSword()
     {
+        SoundManager.Instance.PlaySFX(SFXType.Guen);
         meleeAttackObject.SetActive(true);
         //검공격에 대미지 저장
         bossMeleeAttack.SetDamage(monsterClass.Atk);
@@ -114,6 +115,8 @@ public class BossMove : MonoBehaviour
     }
     public void SpawnSwordAura()
     {
+
+        SoundManager.Instance.PlaySFX(SFXType.One);
         //검기 생성
         GameObject swordAura = Instantiate(swordAuraObject, swordAuraField.position, Quaternion.identity);
         BossRangedAttack arrowScript = swordAura.GetComponent<BossRangedAttack>();
@@ -124,6 +127,8 @@ public class BossMove : MonoBehaviour
     }
     public void SpawnMag()
     {
+
+        SoundManager.Instance.PlaySFX(SFXType.Ma);
         GameObject mag = Instantiate(magObject, magField.position, Quaternion.identity);
         Bossmagical magScript = mag.GetComponent<Bossmagical>();
         magScript.SetDamage(monsterClass.Atk);

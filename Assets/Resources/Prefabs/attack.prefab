@@ -385,5 +385,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8584dbe8f3a5e9f478a9274b45830e58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SFXPlayer
-  sfxType: 2
+  sfxType: 1
   playOnAwake: 1
