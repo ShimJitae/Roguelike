@@ -131,6 +131,7 @@ public class Minimap : MonoBehaviour
         /*
          Collider2D bounds의 월드 중심을 target의 로컬 좌표로 변환하여 아이콘을 배치
          Collider 중심이 오브젝트 피벗과 다른 경우도 보정
+         InverseTransformPoint : 월드 좌표로 나온 Collider 중심점을, target 기준 로컬 좌표로 변환
          */
         Vector3 colliderCenter = target.transform.InverseTransformPoint(targetCollider.bounds.center);
         icon.transform.localPosition = new Vector3(colliderCenter.x, colliderCenter.y, 0f);
