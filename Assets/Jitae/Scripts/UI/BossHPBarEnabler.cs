@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using System.Collections;
 
 public class BossHPBarEnabler : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class BossHPBarEnabler : MonoBehaviour
     void OnEnable()
     {
         bossUI = Instantiate(bossUIPrefab);
+        StartCoroutine(EnableBossHPBar());
     }
 
     void OnDisable()
@@ -27,8 +29,10 @@ public class BossHPBarEnabler : MonoBehaviour
 
     [SerializeField] float tweenDuration = 1.5f;
     [ContextMenu("Test EnableBossHPBar")]
-    public void EnableBossHPBar()
+    public IEnumerator EnableBossHPBar()
     {
+        yield return new WaitForSeconds(2.5f);
+
         SetEnabler();
         bossUI.SetActive(true);
 
