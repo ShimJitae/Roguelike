@@ -66,6 +66,10 @@ public class Entity : MonoBehaviour
     상대 개체에의 OnHit 이벤트를 호출한다.
     각자 구현한 공격 로직에서 공격할 대상을 판별하고, DealDamage 메서드를 호출하면 된다.
     */
+    public void EntityHeal(float HealValue)
+    {
+        hp += HealValue;
+    }
     private void DealDamage(Entity targetEntity, float damage)
     {
         targetEntity.OnHit?.Invoke(damage);

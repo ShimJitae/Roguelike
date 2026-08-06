@@ -108,9 +108,9 @@ public class BossMove : MonoBehaviour
         GameObject swordAura = Instantiate(swordAuraObject, swordAuraField.position, Quaternion.identity);
         BossRangedAttack arrowScript = swordAura.GetComponent<BossRangedAttack>();
         arrowScript.SetDamage(monsterClass.Atk);
-        Rigidbody2D arrowRb = swordAura.GetComponent<Rigidbody2D>();
+        Rigidbody2D swordAuraRb = swordAura.GetComponent<Rigidbody2D>();
         Vector2 playerPosition = (player.position - swordAuraField.position).normalized;
-        arrowRb.linearVelocity = playerPosition * swordAuraSpeed;
+        swordAuraRb.linearVelocity = playerPosition * swordAuraSpeed;
     }
     public void SpawnMag()
     {
@@ -192,7 +192,15 @@ public class BossMove : MonoBehaviour
         an.SetFloat("IsSpeed", 0f);
 
     }
-
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (!collision.gameObject.CompareTag("Player"))
+        {
+            return;
+        }
+        PlayerClass playerclass = collision.gameObject.GetComponent<PlayerClass>();
+        monsterClass.OnHit?.Invoke(Mathf.Max(0, monsterClass.MonsterBodyAttack - playerclass.Def));
+    }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
