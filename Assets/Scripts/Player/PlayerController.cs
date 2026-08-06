@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     private Collision coll;
     private PlayerAnim anim;
+    private PlayerClass playerClass;
 
     // 점프 관련
     [SerializeField] private float jumpPower;
@@ -42,7 +43,9 @@ public class PlayerController : MonoBehaviour
         coll = GetComponent<Collision>();
         anim = GetComponentInChildren<PlayerAnim>();
         rb = GetComponent<Rigidbody2D>();
-        
+        playerClass = GetComponent<PlayerClass>();
+
+
     }
 
     void Start()
@@ -172,11 +175,24 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+    private void Update()
+    {
+        if (!playerClass.isAlive)
+        {
+            Debug.Log($"{playerClass.Hp}");
+            anim.Death();
+        }
+    }
     
 
 
     private void FixedUpdate()
     {
+        
+        if (!playerClass.isAlive)
+            return;
+        
         // 벽점프 딜레이 해제
         if (isWallJumping)
         {
