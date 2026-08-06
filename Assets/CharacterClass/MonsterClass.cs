@@ -5,7 +5,6 @@ public class MonsterClass : Entity
     private CharacterAnimController ancon;
     [SerializeField] private MonsterData monsterData;
     private string monsterId;
-    private MonsterAttackType attackType;
     private string monsterName;
     protected float monsterBodyAttack;
     public float MonsterBodyAttack => monsterBodyAttack;
