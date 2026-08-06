@@ -1,37 +1,32 @@
 using UnityEngine;
 
-public class MonsterAnimationEvent : MonoBehaviour
+public class MonsterAnimationEvent : CharacterAnimationEvent
 {
     private MonsterMove monsterMove;
-    private void Awake()
+    private void Start()
     {
         monsterMove = GetComponentInParent<MonsterMove>();
     }
-    public void SpawnArrow()
+
+    protected override void SpawnArrow()
     {
-        if (monsterMove != null)
-        {
-            monsterMove.SpawnArrow();
-        }
+        base.SpawnArrow();
     }
-    public void spawnSword()
+
+    protected override void spawnSword()
     {
-        if (monsterMove != null)
-        {
-            monsterMove.SpawnSword();
-        }
+        base.spawnSword();
 
     }
-    public void RemoveSword()
+    protected override void RemoveSword()
     {
-        if (monsterMove != null)
-        {
-            monsterMove.RemoveSword();
-        }
-
+        base.RemoveSword();
     }
+
+    
     public void EndAttack()
     {
         monsterMove.isAttacking = false;
     }
+    
 }

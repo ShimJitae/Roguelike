@@ -50,6 +50,16 @@ public class BossMove : MonoBehaviour
     }
     private void Update()
     {
+        if (!monsterClass.isAlive)
+        {
+            ancon.PlayDeath();
+            rb.gravityScale = 0;
+            col.isTrigger = true;
+            return;
+        }
+        BossAlivePlay();
+
+        /*
         if (monsterClass.Hp <= 0)
         {
             monsterClass.isAlive = false;
@@ -67,6 +77,7 @@ public class BossMove : MonoBehaviour
             BossAlivePlay();
             
         }
+        */
     }
 
     private void StartAttack()
