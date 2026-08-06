@@ -4,10 +4,12 @@ public class MonsterAnimationEvent : CharacterAnimationEvent
 {
     private MonsterMove monsterMove;
     private ItemDrop itemDrop;
+    private PlayerClass playerClass;
     private void Start()
     {
         monsterMove = GetComponentInParent<MonsterMove>();
         itemDrop = GetComponentInParent<ItemDrop>();
+        playerClass = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerClass>();
     }
 
     protected override void SpawnArrow()
@@ -26,7 +28,8 @@ public class MonsterAnimationEvent : CharacterAnimationEvent
     }
     protected override void OnDeath()
     {
-        Destroy(transform.parent);
+        playerClass.mobCount++;
+        Destroy(transform.parent.gameObject);
     }
 
     protected override void DropItem()

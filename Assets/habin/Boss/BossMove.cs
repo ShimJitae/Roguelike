@@ -12,6 +12,7 @@ public class BossMove : MonoBehaviour
     private BossAnimController ancon;
     private MonsterClass monsterClass;
     private BossMeleeAttack bossMeleeAttack;
+    private PlayerClass playerClass;
     private bool isAttacking;
     [Header("이동 및 감지")]
     [SerializeField] private float moveSpeed;
@@ -34,6 +35,7 @@ public class BossMove : MonoBehaviour
     [SerializeField] private Transform magField;
     private float nextAttackTime { get; set; }
     private int attackCount = 0;
+    private bool isDeath = false;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -51,14 +53,23 @@ public class BossMove : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        playerClass = player.GetComponent<PlayerClass>();
     }
     private void Update()
     {
         if (!monsterClass.isAlive)
         {
-            ancon.PlayDeath();
-            rb.gravityScale = 0;
-            col.isTrigger = true;
+            if (isDeath == false)
+            {
+                rb.linearVelocity = Vector2.zero;
+                rb.gravityScale = 0;
+                col.isTrigger = true;
+                playerClass.mobCount++;
+                ancon.PlayDeath();
+                isDeath = true;
+                
+            }
+            
             return;
         }
         BossAlivePlay();
@@ -199,7 +210,7 @@ public class BossMove : MonoBehaviour
             return;
         }
         PlayerClass playerclass = collision.gameObject.GetComponent<PlayerClass>();
-        monsterClass.OnHit?.Invoke(Mathf.Max(0, monsterClass.MonsterBodyAttack - playerclass.Def));
+        playerclass.OnHit?.Invoke(Mathf.Max(0, monsterClass.MonsterBodyAttack - playerclass.Def));
     }
     private void OnDrawGizmos()
     {

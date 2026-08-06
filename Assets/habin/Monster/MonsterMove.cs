@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Newtonsoft.Json.Converters;
 
 public class MonsterMove : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class MonsterMove : MonoBehaviour
     private SpriteRenderer[] sp;
     private CapsuleCollider2D col;
     public bool isAttacking;
+    public bool isDeath;
 
     [Header("이동 및 감지")]
     [SerializeField] private float moveSpeed;
@@ -60,10 +62,14 @@ public class MonsterMove : MonoBehaviour
     {
         if (!monsterClass.isAlive)
         {
-
-            col.isTrigger = true;
-            rb.gravityScale = 0;
-            ancon.PlayDeath();
+            if (isDeath == false)
+            {
+                rb.linearVelocity = Vector2.zero;
+                col.isTrigger = true;
+                rb.gravityScale = 0;
+                ancon.PlayDeath();
+                isDeath = true;
+            }
             return;
         }
         MonsterAlivePlay();
@@ -176,7 +182,7 @@ public class MonsterMove : MonoBehaviour
             return;
         }
         PlayerClass playerclass = collision.gameObject.GetComponent<PlayerClass>();
-        monsterClass.OnHit?.Invoke(Mathf.Max(0, monsterClass.MonsterBodyAttack - playerclass.Def));
+        playerclass.OnHit?.Invoke(Mathf.Max(0, monsterClass.MonsterBodyAttack - playerclass.Def));
     }
 
 
