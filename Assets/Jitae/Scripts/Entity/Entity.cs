@@ -17,9 +17,8 @@ public class Entity : MonoBehaviour
     public float Atk => atk;
     [SerializeField] protected float def;
     public float Def => def;
-    public bool isAlive = true;
+    public bool isAlive => hp > 0;
     [SerializeField] public int mobCount = 0;
-
     /*
     다른 개체에게 공격을 당했을 때, 실행시킬 이벤트
     Entity 클래스에서는 HP 감소에 대한 이벤트를 정의
@@ -60,10 +59,6 @@ public class Entity : MonoBehaviour
 
             StartCoroutine(HitEffect());
         }
-        if (hp <= 0)
-        {
-            isAlive = false;
-        }
     }
 
     /*
@@ -78,17 +73,18 @@ public class Entity : MonoBehaviour
     
     private IEnumerator HitEffect()
     {
-        Transform unitRoot = transform.Find("UnitRoot");
-        if (unitRoot == null)
+        Transform root = transform.GetChild(0).GetChild(0);
+        if (root == null)
         {
             yield break;
         }
         for (int i = 0; i < 3; i++)
         {
-            unitRoot.gameObject.SetActive(false);
+            root.gameObject.SetActive(false);
             yield return new WaitForSeconds(0.05f);
-            unitRoot.gameObject.SetActive(true);
+            root.gameObject.SetActive(true);
             yield return new WaitForSeconds(0.05f);
         }
     }
+
 }

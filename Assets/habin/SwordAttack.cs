@@ -68,8 +68,6 @@ public class SwordAttack : MonoBehaviour
         target.OnHit?.Invoke(Mathf.Max(0, swordDamage - target.Def));
         Debug.Log("검 피격!");
         Destroy(gameObject);
-
-
     }
 
     /*

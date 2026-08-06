@@ -22,7 +22,6 @@ public class MonsterClass : Entity
         monsterName = monsterData.MonsterName;
         monsterBodyAttack = monsterData.BodyAttack;
         monsterExp = monsterData.Exp;
-        isAlive = true;
     }
     public void PlayerAttack()
     {
