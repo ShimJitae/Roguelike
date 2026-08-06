@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3502619387115887816}
   - component: {fileID: 8619134855353600262}
   - component: {fileID: 6870609475114515034}
+  - component: {fileID: -6513272914997493254}
   m_Layer: 0
   m_Name: attack
   m_TagString: Untagged
@@ -372,3 +373,17 @@ PolygonCollider2D:
       - {x: 2.81, y: 1.25}
       - {x: 2.78, y: 1.22}
   m_UseDelaunayMesh: 1
+--- !u!114 &-6513272914997493254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957189536435483299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8584dbe8f3a5e9f478a9274b45830e58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SFXPlayer
+  sfxType: 2
+  playOnAwake: 1
