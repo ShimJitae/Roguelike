@@ -18,6 +18,7 @@ public class Entity : MonoBehaviour
     [SerializeField] protected float def;
     public float Def => def;
     public bool isAlive = true;
+    [SerializeField] public int mobCount = 0;
 
     /*
     다른 개체에게 공격을 당했을 때, 실행시킬 이벤트
@@ -74,6 +75,7 @@ public class Entity : MonoBehaviour
     {
         targetEntity.OnHit?.Invoke(damage);
     }
+    
     private IEnumerator HitEffect()
     {
         Transform unitRoot = transform.Find("UnitRoot");
