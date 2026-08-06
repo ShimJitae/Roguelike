@@ -18,6 +18,7 @@ public class BossHPBarEnabler : MonoBehaviour
     void OnEnable()
     {
         bossUI = Instantiate(bossUIPrefab);
+        EnableBossHPBar();
     }
 
     void OnDisable()
