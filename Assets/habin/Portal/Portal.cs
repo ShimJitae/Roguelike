@@ -7,6 +7,8 @@ public class Portal : MonoBehaviour
     private PlayerClass playerClass;
     private SpriteRenderer sp;
 
+    [SerializeField] GameObject bossMob;
+
     private void Awake()
     {
         sp = GetComponent<SpriteRenderer>();
@@ -35,11 +37,13 @@ public class Portal : MonoBehaviour
         {
             if (playerClass.mobCount == 1)
             {
+                FadeManager.Instance.OnFadeOutComplete += () => bossMob.gameObject.SetActive(false);
                 SceneLoadManager.Instance.LoadScene("TitleScene");
             }
             else
             {
                 FadeManager.Instance.OnFadeOutComplete += () => other.transform.position = portalMovePoint.position;
+                FadeManager.Instance.OnFadeOutComplete += () => bossMob.gameObject.SetActive(true);
                 FadeManager.Instance.Fade();
             }
             playerClass.mobCount = 0;
