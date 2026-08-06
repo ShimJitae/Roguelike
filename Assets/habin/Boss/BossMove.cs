@@ -67,9 +67,9 @@ public class BossMove : MonoBehaviour
                 playerClass.mobCount++;
                 ancon.PlayDeath();
                 isDeath = true;
-                
+
             }
-            
+
             return;
         }
         BossAlivePlay();
@@ -103,7 +103,6 @@ public class BossMove : MonoBehaviour
     }
     public void SpawnSword()
     {
-
         meleeAttackObject.SetActive(true);
         //검공격에 대미지 저장
         bossMeleeAttack.SetDamage(monsterClass.Atk);
