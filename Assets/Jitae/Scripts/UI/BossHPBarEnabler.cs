@@ -15,6 +15,16 @@ public class BossHPBarEnabler : MonoBehaviour
         GetComponent<GaugeViewer>().SetSliderMaxValue(maxValue);
     }
 
+    void OnEnable()
+    {
+        bossUI = Instantiate(bossUIPrefab);
+    }
+
+    void OnDisable()
+    {
+        Destroy(bossUI);
+    }
+
     [SerializeField] float tweenDuration = 1.5f;
     [ContextMenu("Test EnableBossHPBar")]
     public void EnableBossHPBar()
@@ -28,7 +38,6 @@ public class BossHPBarEnabler : MonoBehaviour
 
     private void SetEnabler()
     {
-        bossUI = Instantiate(bossUIPrefab);
         bossHPBar = bossUI.GetComponentInChildren<Slider>();
         bossHPBar.onValueChanged.AddListener(_ => DestroyWhenValue0());
 
