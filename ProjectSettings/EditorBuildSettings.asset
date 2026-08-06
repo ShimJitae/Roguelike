@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Jitae/LobbyScene.unity
     guid: 5233eb57ffa471c4fa54b245fe803ad4
+  - enabled: 1
+    path: Assets/Scenes/DungeonScene.unity
+    guid: 8f2e74cf4b738ba42aff2f23f164195c
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

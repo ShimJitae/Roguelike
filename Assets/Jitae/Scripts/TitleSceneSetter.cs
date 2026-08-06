@@ -9,7 +9,7 @@ public class TitleSceneSetter : MonoBehaviour
     void Start()
     {
         SceneLoadManager slm = SceneLoadManager.Instance;
-        startButton.onClick.AddListener(() => slm.LoadScene(SceneType.LobbyScene));
+        startButton.onClick.AddListener(() => slm.LoadScene("DungeonScene"));
         exitButton.onClick.AddListener(() => slm.ExitGame());
     }
 }

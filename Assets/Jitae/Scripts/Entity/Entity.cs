@@ -17,7 +17,7 @@ public class Entity : MonoBehaviour
     public float Atk => atk;
     [SerializeField] protected float def;
     public float Def => def;
-    protected bool isAlive = true;
+    public bool isAlive = true;
 
     /*
     다른 개체에게 공격을 당했을 때, 실행시킬 이벤트
@@ -45,11 +45,11 @@ public class Entity : MonoBehaviour
     public void TakeDamage(float damageValue)
     {
         hp -= damageValue;
-        if(entityType == EntityType.Monster)
+        if (entityType == EntityType.Monster)
         {
             StartCoroutine(HitEffect());
         }
-        else if(entityType == EntityType.Player)
+        else if (entityType == EntityType.Player)
         {
 
             StartCoroutine(HitEffect());

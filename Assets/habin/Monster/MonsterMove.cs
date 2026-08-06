@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class MonsterMove : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class MonsterMove : MonoBehaviour
     private MonsterClass monsterClass;
     [SerializeField] private Transform AttackField;
     private SpriteRenderer[] sp;
-    public   bool isAttacking;
+    public bool isAttacking;
 
     [Header("이동 및 감지")]
     [SerializeField] private float moveSpeed;
@@ -18,6 +19,7 @@ public class MonsterMove : MonoBehaviour
     [SerializeField] private Transform[] movePoints;
     [SerializeField] private float detcetRange;
     [SerializeField] private float attackRange;
+    [SerializeField] private float maxHeightDifference = 1.5f;
 
     [SerializeField] private float attackCooldown = 2f;
     [Header("근접 공격")]
@@ -47,54 +49,15 @@ public class MonsterMove : MonoBehaviour
 
     void Update()
     {
-        Collider2D findPlayer = Physics2D.OverlapCircle(transform.position, detcetRange, playerLayer);
-        Collider2D attack = Physics2D.OverlapCircle(transform.position, attackRange, playerLayer);
-        if (isAttacking == true)
+        if (monsterClass.Hp <= 0)
         {
-            rb.linearVelocity = Vector2.zero;
-            an.SetFloat("IsSpeed", 0f);
-            return;
-        }
-        if(isAttacking == false)
-        {
-            an.SetFloat("IsSpeed", 3f);
-        }
-        //범위안의 플레이어 추격
-        if (findPlayer != null)
-        {
-            if (attack != null)
-            {
-                if (Time.time >= nextAttackTime)
-                {
-                    StartAttack();
-                    monsterClass.PlayerAttack();
-                    nextAttackTime = Time.time + attackCooldown;
-                    return;
-                }
-            }
-            TrackingPlayer();
-            return;
+            monsterClass.isAlive = false;
 
         }
-        //포인트가 없을때 움직이지 않음
-        if (movePoints == null || movePoints.Length == 0)
+        else if (monsterClass.isAlive == true)
         {
-            rb.linearVelocity = Vector2.zero;
-            return;
+            MonsterAlivePlay();
         }
-        //이동지점 확인
-        Transform targetPoint = movePoints[currentIndex];
-        //이동지점으로 이동
-        Vector2 direction = ((Vector2)targetPoint.position - rb.position).normalized;
-        rb.linearVelocity = direction * moveSpeed;
-        an.SetFloat("IsSpeed", direction.magnitude);
-        float distance = Vector2.Distance(rb.position, targetPoint.position);
-        if (distance < 0.1f)
-        {
-            ChangeTargetPoint();
-        }
-        MonsterFlip();
-        
     }
 
     private void StartAttack()
@@ -176,6 +139,58 @@ public class MonsterMove : MonoBehaviour
             currentIndex = 0;
         }
     }
+    private void MonsterAlivePlay()
+    {
+        Collider2D findPlayer = Physics2D.OverlapCircle(transform.position, detcetRange, playerLayer);
+        Collider2D attack = Physics2D.OverlapCircle(transform.position, attackRange, playerLayer);
+        float heightDifference = Mathf.Abs(player.position.y - transform.position.y);
+        if (isAttacking == true)
+        {
+            rb.linearVelocity = Vector2.zero;
+            an.SetFloat("IsSpeed", 0f);
+            return;
+        }
+        if (isAttacking == false)
+        {
+            an.SetFloat("IsSpeed", 3f);
+        }
+        //범위안의 플레이어 추격
+        if (findPlayer != null && heightDifference <= maxHeightDifference)
+        {
+
+            if (attack != null)
+            {
+                if (Time.time >= nextAttackTime)
+                {
+                    StartAttack();
+                    monsterClass.PlayerAttack();
+                    nextAttackTime = Time.time + attackCooldown;
+                    return;
+                }
+            }
+            TrackingPlayer();
+            return;
+        }
+        //포인트가 없을때 움직이지 않음
+        if (movePoints == null || movePoints.Length == 0)
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+        //이동지점 확인
+        Transform targetPoint = movePoints[currentIndex];
+        //이동지점으로 이동
+        Vector2 direction = ((Vector2)targetPoint.position - rb.position).normalized;
+        rb.linearVelocity = direction * moveSpeed;
+        an.SetFloat("IsSpeed", direction.magnitude);
+        float distance = Vector2.Distance(rb.position, targetPoint.position);
+        if (distance < 0.1f)
+        {
+            ChangeTargetPoint();
+        }
+        MonsterFlip();
+
+    }
 
 
     private void OnDrawGizmos()
@@ -184,5 +199,23 @@ public class MonsterMove : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, detcetRange);
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, attackRange);
+    }
+
+    private IEnumerator HitEffect()
+    {
+        Transform unitRoot = transform.Find("UnitRoot");
+        if (unitRoot == null)
+        {
+            yield break;
+        }
+        for (int i = 0; i < 3; i++)
+        {
+            Debug.Log($"{gameObject.name}의 {unitRoot.name} 끄기");
+            unitRoot.gameObject.SetActive(false);
+            yield return new WaitForSeconds(0.5f);
+            Debug.Log($"{gameObject.name}의 {unitRoot.name} 켜기");
+            unitRoot.gameObject.SetActive(true);
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 }

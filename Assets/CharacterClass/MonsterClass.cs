@@ -24,7 +24,6 @@ public class MonsterClass : Entity
         monsterExp = monsterData.Exp;
         isAlive = true;
     }
-
     public void PlayerAttack()
     {
         Debug.Log("MonsterAttack!");
