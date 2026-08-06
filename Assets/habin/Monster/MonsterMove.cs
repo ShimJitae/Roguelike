@@ -46,6 +46,11 @@ public class MonsterMove : MonoBehaviour
             swordAttack = swordObject.GetComponentInChildren<SwordAttack>(true);
         }
 
+
+    }
+    private void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     void Update()

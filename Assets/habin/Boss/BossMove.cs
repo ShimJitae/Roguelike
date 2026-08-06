@@ -48,6 +48,10 @@ public class BossMove : MonoBehaviour
         }
 
     }
+    private void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
     private void Update()
     {
         if (!monsterClass.isAlive)
@@ -59,25 +63,6 @@ public class BossMove : MonoBehaviour
         }
         BossAlivePlay();
 
-        /*
-        if (monsterClass.Hp <= 0)
-        {
-            monsterClass.isAlive = false;
-            ancon.PlayDeath();
-            rb.gravityScale = 0;
-            col.isTrigger = true;
-
-        }
-        else if (monsterClass.isAlive == true)
-        {
-            //if (Input.GetKeyDown(KeyCode.Z))
-            //{
-            //    monsterClass.TakeDamage(50);
-            //}
-            BossAlivePlay();
-            
-        }
-        */
     }
 
     private void StartAttack()
