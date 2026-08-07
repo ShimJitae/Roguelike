@@ -46,10 +46,16 @@ public class GaugeViewer : MonoBehaviour
     {
         if (entity == null)
             return;
+
+        // 감소된 체력 데이터를 UI에 반영
+        entity.OnHit += SetHPGauge;
     }
 
     private void OnDisable()
     {
+        if (entity != null)
+            entity.OnHit -= SetHPGauge;
+
         currentTween?.Kill();
         currentTween = null;
     }
@@ -73,6 +79,11 @@ public class GaugeViewer : MonoBehaviour
         slider.maxValue = maxValue;
         slider.value = maxValue;
         previousValue = maxValue;
+    }
+
+    public void SetHPGauge(float newValue)
+    {
+        SetGauge(entity.Hp);
     }
 
     public void SetGauge(float newValue)

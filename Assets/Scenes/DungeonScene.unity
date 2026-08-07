@@ -2351,7 +2351,6 @@ MonoBehaviour:
   atk: 0
   def: 0
   monsterData: {fileID: 11400000, guid: f55aef31de3497c4f9099f8c7058a725, type: 2}
-  monsterName: 
 --- !u!1001 &487974970
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2992,6 +2991,10 @@ PrefabInstance:
     - target: {fileID: 3452990973244145750, guid: 9b60d6fb9bf33e248922ff7b0e52afea, type: 3}
       propertyPath: m_Name
       value: BossSkeletonKing
+      objectReference: {fileID: 0}
+    - target: {fileID: 3452990973244145750, guid: 9b60d6fb9bf33e248922ff7b0e52afea, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6400209036659151815, guid: 9b60d6fb9bf33e248922ff7b0e52afea, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9902,7 +9905,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6438480282722269800, guid: d6ec539a76f1e024aa066f4710b50a0d, type: 3}
       propertyPath: playeratk
-      value: 100
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 7676656365257451602, guid: d6ec539a76f1e024aa066f4710b50a0d, type: 3}
       propertyPath: m_Name

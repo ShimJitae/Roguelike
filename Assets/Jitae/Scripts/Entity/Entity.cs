@@ -44,7 +44,7 @@ public class Entity : MonoBehaviour
     {
         // 실제 체력 데이터 값 감소
         OnHit += TakeDamage;
-        OnHit += GetComponent<GaugeViewer>().SetGauge(hp);
+        OnHit += GetComponent<GaugeViewer>().SetHPGauge;
 
         OnHit += sfxPlayer.PlaySFX;
     }
@@ -52,6 +52,7 @@ public class Entity : MonoBehaviour
     private void OnDisable()
     {
         OnHit -= TakeDamage;
+        OnHit -= GetComponent<GaugeViewer>().SetHPGauge;
 
         OnHit -= sfxPlayer.PlaySFX;
     }
@@ -61,11 +62,11 @@ public class Entity : MonoBehaviour
     {
         hp -= damageValue;
 
-        if(attackType == MonsterAttackType.Boss)
+        if (attackType == MonsterAttackType.Boss)
         {
             StartCoroutine(BossHitEffect());
         }
-        else if(entityType == EntityType.Monster && attackType != MonsterAttackType.Boss)
+        else if (entityType == EntityType.Monster && attackType != MonsterAttackType.Boss)
         {
             StartCoroutine(HitEffect());
         }
@@ -89,7 +90,7 @@ public class Entity : MonoBehaviour
     {
         targetEntity.OnHit?.Invoke(damage);
     }
-    
+
     protected virtual IEnumerator HitEffect()
     {
         Transform root = transform.GetChild(0).GetChild(0);
