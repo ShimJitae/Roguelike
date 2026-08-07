@@ -9,6 +9,7 @@ TagManager:
   - Wall
   - Weapon
   - MinimapIcon
+  - Upgrade
   layers:
   - Default
   - TransparentFX
