@@ -14,7 +14,13 @@ public class Entity : MonoBehaviour
     [SerializeField] protected float maxHp;
     public float MaxHp => maxHp;
     [SerializeField] protected float hp;
-    public float Hp => hp;
+    public float Hp
+    {
+        get
+        {
+            return Math.Clamp(hp,0,maxHp);
+        }
+    }
     [SerializeField] protected float atk;
     public float Atk => atk;
     [SerializeField] protected float def;
@@ -42,7 +48,7 @@ public class Entity : MonoBehaviour
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
     }
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         // 실제 체력 데이터 값 감소
         OnHit += TakeDamage;
@@ -51,7 +57,7 @@ public class Entity : MonoBehaviour
         OnHit += sfxPlayer.PlaySFX;
     }
 
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
         OnHit -= TakeDamage;
         OnHit -= GetComponent<GaugeViewer>().SetHPGauge;
@@ -87,15 +93,19 @@ public class Entity : MonoBehaviour
     public void EntityHeal(float HealValue)
     {
         hp += HealValue;
+        GetComponent<GaugeViewer>().SetHPGauge(0f);
     }
     private void DealDamage(Entity targetEntity, float damage)
     {
         targetEntity.OnHit?.Invoke(damage);
     }
 
-    public void UpMoney(int moneyValue)
+    public virtual void UpMoney(int moneyValue)
     {
+        Debug.Log(money);
+        Debug.Log(moneyValue);
         money += moneyValue;
+        Debug.Log(money);
     }
     public void DownMoney(int moneyValue)
     {

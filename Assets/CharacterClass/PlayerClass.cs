@@ -43,9 +43,10 @@ public class PlayerClass : Entity
         DontDestroyOnLoad(gameObject);
     }
 
-    void OnEnable()
+    protected override void OnEnable()
     {
         // 씬 매니저의 sceneLoaded에 체인을 건다.
+        base.OnEnable();
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
@@ -56,8 +57,9 @@ public class PlayerClass : Entity
         transform.position = startPoint.position;
     }
 
-    void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
@@ -95,7 +97,7 @@ public class PlayerClass : Entity
         level = 1;
         exp = 0;
         maxExp = 10;
-        money = 1000;
+        
     }
 
     private void InitializeStats()
@@ -112,6 +114,11 @@ public class PlayerClass : Entity
     {
         InitializeRunData();
         InitializeStats();
+    }
+
+    public override void UpMoney(int moneyValue)
+    {
+        base.UpMoney(moneyValue);
     }
 
     public void UseMoney(int value)
