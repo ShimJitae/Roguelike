@@ -19,16 +19,21 @@ public class PlayerClass : Entity
     private int maxExp;
 
     // 영구 능력치
-    private int bonusHp;
-    private int bonusAtk;
-    private int bonusDef;
-    private int money;
+    [SerializeField] private int bonusHp;
+    [SerializeField] private int bonusAtk;
+    [SerializeField] private int bonusDef;
 
     protected override void Awake()
     {
         base.Awake();
 
         entityType = EntityType.Player;
+        
+        
+    }
+
+    private void Start()
+    {
         LoadPermanentData();
         InitializeRunData();
         InitializeStats();
@@ -61,6 +66,7 @@ public class PlayerClass : Entity
         level = 1;
         exp = 0;
         maxExp = 10;
+        money = 1000;
     }
 
     private void InitializeStats()
@@ -78,6 +84,7 @@ public class PlayerClass : Entity
         InitializeRunData();
         InitializeStats();
     }
+
     public void UseMoney(int value)
     {
         money -= value;
@@ -86,17 +93,21 @@ public class PlayerClass : Entity
             money = 0;
         }
     }
+
     public void AddAttack(int value)
     {
-         bonusAtk += value;
+        bonusAtk += value;
+        atk += bonusAtk;
     }
     public void AddDefense(int value)
     {
         bonusDef += value;
+        def += bonusAtk;
     }
     public void AddHp(int value)
     {
         bonusHp += value;
+        hp += bonusAtk;
     }
 
     public void GetExp(int amount)
@@ -125,6 +136,8 @@ public class PlayerClass : Entity
         maxHp += (int)(level * 1.2);
         atk += (int)(level * 1.2);
         def += (int)(level * 1.2);
+
+        Debug.Log("레벨 업!");
     }
 
     // 영구 능력치 데이터 저장
@@ -156,4 +169,25 @@ public class PlayerClass : Entity
         Debug.Log("플레이어 영구 데이터 저장 완료");
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            LevelUp();
+        }
+
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            Debug.Log("공격력 업");
+            bonusAtk += 10;
+            SaveData();
+        }
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            Debug.Log("공격력 다운");
+            bonusAtk -= 10;
+            SaveData();
+        }
+    }
 }

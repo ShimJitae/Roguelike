@@ -61,6 +61,8 @@ public class UpgradeNPC : MonoBehaviour
         playerClass.attackUpgradeLevel++;
 
         Debug.Log($"공격력 강화 완료! 현재 공격력: {playerClass.Atk}");
+        playerClass.SaveData();
+
         return true;
     }
     public bool UpgradeDefense()
@@ -80,6 +82,8 @@ public class UpgradeNPC : MonoBehaviour
         playerClass.defenseUpgradeLevel++;
 
         Debug.Log($"방어력 강화 완료! 현재 방어력: {playerClass.Def}");
+        playerClass.SaveData();
+
         return true;
     }
     public bool UpgradeHp()
@@ -98,7 +102,8 @@ public class UpgradeNPC : MonoBehaviour
         playerClass.AddHp(hpUpgradeValue);
         playerClass.hpUpgradeLevel++;
 
-        Debug.Log($"체력 강화 완료! 현재 체력: {playerClass.Hp}");
+        Debug.Log($"체력 강화 완료! 현재 체력: {playerClass.MaxHp}");
+        playerClass.SaveData();
         return true;
     }
 }

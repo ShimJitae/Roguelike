@@ -38,6 +38,7 @@ public class Portal : MonoBehaviour
             if (playerClass.mobCount == 1)
             {
                 FadeManager.Instance.OnFadeOutComplete += () => bossMob.gameObject.SetActive(false);
+                playerClass.StatReset(); // 플레이어 스탯 초기화
                 SceneLoadManager.Instance.LoadScene("TitleScene");
             }
             else
