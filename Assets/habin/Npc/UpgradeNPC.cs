@@ -12,8 +12,10 @@ public class UpgradeNPC : MonoBehaviour
     [Header("강화")]
     [SerializeField] private int attackUpgradeCost = 100;
     [SerializeField] private int defenseUpgradeCost = 100;
-    [SerializeField] private float attackUpgradeValue = 10f;
-    [SerializeField] private float defenseUpgradeValue = 1f;
+    [SerializeField] private int hpUpgradeCost = 100;
+    [SerializeField] private int attackUpgradeValue = 10;
+    [SerializeField] private int defenseUpgradeValue = 1;
+    [SerializeField] private int hpUpgradeValue = 10;
     private PlayerClass playerClass;
     void Awake()
     {
@@ -54,7 +56,7 @@ public class UpgradeNPC : MonoBehaviour
             return false;
         }
 
-        playerClass.UseMoney(attackUpgradeCost);
+        playerClass.UseMoney(cost);
         playerClass.AddAttack(attackUpgradeValue);
         playerClass.attackUpgradeLevel++;
 
@@ -65,7 +67,7 @@ public class UpgradeNPC : MonoBehaviour
     {
         if (playerClass == null)
             return false;
-        int cost = attackUpgradeCost * playerClass.attackUpgradeLevel;
+        int cost = defenseUpgradeCost * playerClass.defenseUpgradeLevel;
 
         if (playerClass.Money < cost)
         {
@@ -73,11 +75,30 @@ public class UpgradeNPC : MonoBehaviour
             return false;
         }
 
-        playerClass.UseMoney(defenseUpgradeCost);
+        playerClass.UseMoney(cost);
         playerClass.AddDefense(defenseUpgradeValue);
         playerClass.defenseUpgradeLevel++;
 
         Debug.Log($"방어력 강화 완료! 현재 방어력: {playerClass.Def}");
+        return true;
+    }
+    public bool UpgradeHp()
+    {
+        if (playerClass == null)
+            return false;
+        int cost = hpUpgradeCost * playerClass.hpUpgradeLevel;
+
+        if (playerClass.Money < cost)
+        {
+            Debug.Log("돈이 부족합니다.");
+            return false;
+        }
+
+        playerClass.UseMoney(cost);
+        playerClass.AddHp(hpUpgradeValue);
+        playerClass.hpUpgradeLevel++;
+
+        Debug.Log($"체력 강화 완료! 현재 체력: {playerClass.Hp}");
         return true;
     }
 }
