@@ -295,7 +295,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 90777644}
-  m_BodyType: 2
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -2351,7 +2351,6 @@ MonoBehaviour:
   atk: 0
   def: 0
   monsterData: {fileID: 11400000, guid: f55aef31de3497c4f9099f8c7058a725, type: 2}
-  monsterName: 
 --- !u!1001 &487974970
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2648,9 +2647,9 @@ GameObject:
   - component: {fileID: 763644061}
   - component: {fileID: 763644060}
   - component: {fileID: 763644059}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Platform
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2852,7 +2851,7 @@ PlatformEffector2D:
     m_Bits: 4294967295
   m_RotationalOffset: 0
   m_UseOneWay: 1
-  m_UseOneWayGrouping: 0
+  m_UseOneWayGrouping: 1
   m_SurfaceArc: 180
   m_UseSideFriction: 0
   m_UseSideBounce: 0
@@ -2888,7 +2887,7 @@ CompositeCollider2D:
     serializedVersion: 2
     m_Bits: 4294967295
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
@@ -2924,7 +2923,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 763644055}
-  m_BodyType: 2
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -9902,7 +9901,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6438480282722269800, guid: d6ec539a76f1e024aa066f4710b50a0d, type: 3}
       propertyPath: playeratk
-      value: 100
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 7676656365257451602, guid: d6ec539a76f1e024aa066f4710b50a0d, type: 3}
       propertyPath: m_Name
@@ -12158,6 +12157,10 @@ PrefabInstance:
     - target: {fileID: 4855742788631656, guid: ba07331ce0f18e2429d59f4bdd6a861e, type: 3}
       propertyPath: m_Name
       value: Portal
+      objectReference: {fileID: 0}
+    - target: {fileID: 4855742788631656, guid: ba07331ce0f18e2429d59f4bdd6a861e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2583231059520163086, guid: ba07331ce0f18e2429d59f4bdd6a861e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -23214,7 +23217,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1978752388}
-  m_BodyType: 2
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
