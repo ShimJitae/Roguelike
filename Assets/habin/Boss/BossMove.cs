@@ -122,8 +122,14 @@ public class BossMove : MonoBehaviour
         BossRangedAttack arrowScript = swordAura.GetComponent<BossRangedAttack>();
         arrowScript.SetDamage(monsterClass.Atk);
         Rigidbody2D swordAuraRb = swordAura.GetComponent<Rigidbody2D>();
-        Vector2 playerPosition = (player.position - swordAuraField.position).normalized;
-        swordAuraRb.linearVelocity = playerPosition * swordAuraSpeed;
+        if(sp.flipX == true)
+        {
+            swordAuraRb.linearVelocity = Vector2.left * swordAuraSpeed;
+        }
+        if(sp.flipX == false)
+        {
+            swordAuraRb.linearVelocity = Vector2.right * swordAuraSpeed;
+        }
     }
     public void SpawnMag()
     {
