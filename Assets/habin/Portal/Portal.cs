@@ -44,6 +44,7 @@ public class Portal : MonoBehaviour
             {
                 FadeManager.Instance.OnFadeOutComplete += () => other.transform.position = portalMovePoint.position;
                 FadeManager.Instance.OnFadeOutComplete += () => bossMob.gameObject.SetActive(true);
+                FadeManager.Instance.OnFadeOutComplete += () => SoundManager.Instance.PlayBGM(BGMType.Boss);
                 FadeManager.Instance.Fade();
             }
             playerClass.mobCount = 0;

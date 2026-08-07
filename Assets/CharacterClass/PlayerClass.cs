@@ -5,19 +5,21 @@ public class PlayerClass : Entity
 {
     [SerializeField] float playerMaxHp = 100;
     [SerializeField] float playeratk = 10;
-    [SerializeField] float playerdef= 10;
+    [SerializeField] float playerdef = 10;
     [SerializeField] public int mobCount;
     [SerializeField] public int attackUpgradeLevel = 1;
     [SerializeField] public int defenseUpgradeLevel = 1;
-    private void Awake()
+
+    protected override void Awake()
     {
+        base.Awake();
+
         entityType = EntityType.Player;
         maxHp = playerMaxHp;
         hp = maxHp;
         atk = playeratk;
-        def= playerdef;
+        def = playerdef;
         mobCount = 0;
-
     }
     public void UseMoney(int value)
     {

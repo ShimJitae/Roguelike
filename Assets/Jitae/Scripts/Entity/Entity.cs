@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.Collections;
+using System.Net;
 
 
 // 몬스터/플레이어는 모두 HP 게이지를 가지고 있어야 하므로, Entity 클래스에서 HP 게이지를 관리하도록 합니다.
@@ -9,6 +10,7 @@ public class Entity : MonoBehaviour
 {
     private SpriteRenderer[] spriteRenderers;
     protected EntityType entityType;
+    protected MonsterAttackType attackType;
     [SerializeField] protected float maxHp;
     public float MaxHp => maxHp;
     [SerializeField] protected float hp;
@@ -20,7 +22,8 @@ public class Entity : MonoBehaviour
     [SerializeField] protected int money;
     public int Money => money;
     public bool isAlive => hp > 0;
-    
+
+    SFXPlayer sfxPlayer;
     /*
     다른 개체에게 공격을 당했을 때, 실행시킬 이벤트
     Entity 클래스에서는 HP 감소에 대한 이벤트를 정의
@@ -28,35 +31,48 @@ public class Entity : MonoBehaviour
     OnHit의 매개변수 float는 받는 데미지
     */
     public Action<float> OnHit;
-    private void Awake()
+    protected virtual void Awake()
     {
+        if (sfxPlayer == null)
+        {
+            gameObject.AddComponent<SFXPlayer>();
+        }
+        sfxPlayer = GetComponent<SFXPlayer>();
+
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
     }
+
     private void OnEnable()
     {
         // 실제 체력 데이터 값 감소
         OnHit += TakeDamage;
+        OnHit += GetComponent<GaugeViewer>().SetHPGauge;
+
+        OnHit += sfxPlayer.PlaySFX;
     }
 
     private void OnDisable()
     {
         OnHit -= TakeDamage;
+        OnHit -= GetComponent<GaugeViewer>().SetHPGauge;
+
+        OnHit -= sfxPlayer.PlaySFX;
     }
 
     // 데미지를 받는 메서드
-    public void TakeDamage(float damageValue)
+    public virtual void TakeDamage(float damageValue)
     {
         hp -= damageValue;
-        if (entityType == EntityType.Monster)
+
+        if (attackType == MonsterAttackType.Boss)
+        {
+            StartCoroutine(BossHitEffect());
+        }
+        else if (entityType == EntityType.Monster && attackType != MonsterAttackType.Boss)
         {
             StartCoroutine(HitEffect());
         }
         else if (entityType == EntityType.Player)
-        {
-
-            StartCoroutine(HitEffect());
-        }
-        else if(entityType == EntityType.Boss)
         {
 
             StartCoroutine(HitEffect());
@@ -76,6 +92,7 @@ public class Entity : MonoBehaviour
     {
         targetEntity.OnHit?.Invoke(damage);
     }
+
     public void UpMoney(int moneyValue)
     {
         money += moneyValue;
@@ -86,9 +103,14 @@ public class Entity : MonoBehaviour
     }
 
 
-    private IEnumerator HitEffect()
+
+
+
+    protected virtual IEnumerator HitEffect()
+
     {
         Transform root = transform.GetChild(0).GetChild(0);
+
         if (root == null)
         {
             yield break;
@@ -102,4 +124,20 @@ public class Entity : MonoBehaviour
         }
     }
 
+    protected virtual IEnumerator BossHitEffect()
+    {
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        CapsuleCollider2D coll = GetComponent<CapsuleCollider2D>();
+
+
+        for (int i = 0; i < 3; i++)
+        {
+            sr.enabled = false;
+            coll.enabled = false;
+            yield return new WaitForSeconds(0.05f);
+            sr.enabled = true;
+            coll.enabled = true;
+            yield return new WaitForSeconds(0.05f);
+        }
+    }
 }

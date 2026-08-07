@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance { get; private set; }
 
     [SerializeField] private AudioClip bgm_Title, bgm_Normal, bgm_Boss;
-    [SerializeField] private AudioClip sfx_OnHit, sfx_Guen, sfx_One, sfx_Ma, sfx_Portal;
+    [SerializeField] private AudioClip sfx_OnHit, sfx_Guen, sfx_One, sfx_Ma;
 
     private Dictionary<BGMType, AudioClip> bgmDic;
     private Dictionary<SFXType, AudioClip> sfxDic;
@@ -41,8 +42,11 @@ public class SoundManager : MonoBehaviour
             { SFXType.Guen, sfx_Guen},
             { SFXType.One, sfx_One},
             { SFXType.Ma, sfx_Ma},
-            { SFXType.Portal, sfx_Portal},
         };
+        if (SceneManager.GetActiveScene().name == "TitleScene")
+        {
+            PlayBGM(BGMType.Title);
+        }
     }
 
     /// <summary>
