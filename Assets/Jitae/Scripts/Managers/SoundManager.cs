@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SoundManager : MonoBehaviour
 {
@@ -42,6 +43,10 @@ public class SoundManager : MonoBehaviour
             { SFXType.One, sfx_One},
             { SFXType.Ma, sfx_Ma},
         };
+        if (SceneManager.GetActiveScene().name == "TitleScene")
+        {
+            PlayBGM(BGMType.Title);
+        }
     }
 
     /// <summary>

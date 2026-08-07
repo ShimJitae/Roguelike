@@ -42,6 +42,7 @@ public class Entity : MonoBehaviour
     {
         // 실제 체력 데이터 값 감소
         OnHit += TakeDamage;
+        OnHit += GetComponent<GaugeViewer>().SetGauge(hp);
 
         OnHit += sfxPlayer.PlaySFX;
     }
