@@ -7,6 +7,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private TMP_Text npcNameText;
     [SerializeField] private TMP_Text dialogueText;
+    [SerializeField] private TMP_Text moneyText;
 
     [SerializeField] private GameObject choicePanel;
     [SerializeField] private Button ChoiceButton1;
@@ -41,6 +42,7 @@ public class DialogueManager : MonoBehaviour
         choicePanel.SetActive(true);
 
         npcNameText.text = npcName;
+        moneyText.text = $"보유 마석 : {playerClass.Money}";
         dialogueText.text = currentDialogues[currentIndex];
     }
     public void NextDialogue()

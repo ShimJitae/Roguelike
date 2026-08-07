@@ -30,6 +30,14 @@ public class PlayerAnim : MonoBehaviour
         spumPrefabs.PlayAnimation(PlayerState.IDLE, 0);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            isAttacking = !isAttacking;
+        }
+    }
+
     public void FlipX()
     {
         if (isAttacking)

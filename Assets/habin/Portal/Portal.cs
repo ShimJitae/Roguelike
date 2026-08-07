@@ -16,6 +16,8 @@ public class Portal : MonoBehaviour
     }
     private void Update()
     {
+        Debug.Log("몹카운트" + playerClass.mobCount + "필드 카운트" + fildMobCount);
+
         if (playerClass.mobCount < fildMobCount)
         {
             sp.enabled = false;
