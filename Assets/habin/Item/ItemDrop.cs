@@ -18,11 +18,14 @@ public class ItemDrop : MonoBehaviour
     public void DropItem()
     {
         Vector3 dropPosition = transform.position + Vector3.up * 0.5f;
+        Vector3 dropPosition1 = transform.position + Vector3.up * 0.5f + Vector3.left * 0.5f; ;
+        Vector3 dropPosition2 = transform.position + Vector3.up * 0.5f + Vector3.right * 0.5f; ;
+        Vector3 dropPosition3 = transform.position + Vector3.up * 0.5f + Vector3.left * 1f; ;
+        Vector3 dropPosition4 = transform.position + Vector3.up * 0.5f + Vector3.right * 1f; ;
 
         if (magicStone != null)
         {
             GameObject stone = Instantiate(magicStone, dropPosition, Quaternion.identity);
-            //생성시킨 몬스터? 드롭아이템을 실행시킨 몬스터의 데이터 값을 받아와야함
 
             itemClass stoneItemClass = stone.GetComponent<itemClass>();
             if (stoneItemClass != null)
@@ -35,7 +38,7 @@ public class ItemDrop : MonoBehaviour
         {
             if (Random.value <= dropChance)
             {
-                Instantiate(dropItem1, transform.position + Vector3.up * 0.5f, Quaternion.identity);
+                Instantiate(dropItem1, dropPosition1, Quaternion.identity);
             }
 
         }
@@ -43,7 +46,7 @@ public class ItemDrop : MonoBehaviour
         {
             if (Random.value <= dropChance)
             {
-                Instantiate(dropItem2, transform.position + Vector3.up * 0.5f, Quaternion.identity);
+                Instantiate(dropItem2, dropPosition2, Quaternion.identity);
             }
 
         }
@@ -51,7 +54,7 @@ public class ItemDrop : MonoBehaviour
         {
             if (Random.value <= dropChance)
             {
-                Instantiate(dropItem3, transform.position + Vector3.up * 0.5f, Quaternion.identity);
+                Instantiate(dropItem3, dropPosition3, Quaternion.identity);
             }
 
         }
@@ -59,7 +62,7 @@ public class ItemDrop : MonoBehaviour
         {
             if (Random.value <= dropChance)
             {
-                Instantiate(dropItem4, transform.position + Vector3.up * 0.5f, Quaternion.identity);
+                Instantiate(dropItem4, dropPosition4, Quaternion.identity);
             }
 
         }
