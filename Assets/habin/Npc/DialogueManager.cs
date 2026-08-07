@@ -58,7 +58,7 @@ public class DialogueManager : MonoBehaviour
         choicePanel.SetActive(true);
         dialogueText.text = "강화하시겠습니까?";
     }
-    public void Select1()
+    public void SelectAtk()
     {
         bool success = upgradeNPC.UpgradeAttack();
         if (success)
@@ -72,7 +72,7 @@ public class DialogueManager : MonoBehaviour
         choicePanel.SetActive(false);
         isResultShowing = true;
     }
-    public void Select2()
+    public void SelectDef()
     {
         bool success = upgradeNPC.UpgradeDefense();
 
@@ -88,14 +88,31 @@ public class DialogueManager : MonoBehaviour
         choicePanel.SetActive(false);
         isResultShowing = true;
 
-        // 여기서 강화 하기
     }
-    public void Select3()
+    public void SelectNo()
     {
         Debug.Log("거절 선택");
 
         choicePanel.SetActive(false);
         CloseDialogue();
+
+    }
+    public void SelectHp()
+    {
+        Debug.Log("체력 버튼 클릭됨");
+        bool success = upgradeNPC.UpgradeHp();
+
+        if (success)
+        {
+            dialogueText.text = "체력 강화에 성공했습니다.";
+        }
+        else
+        {
+            dialogueText.text = "마석이 부족합니다.";
+        }
+
+        choicePanel.SetActive(false);
+        isResultShowing = true;
 
     }
     public void CloseDialogue()

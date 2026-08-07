@@ -11,6 +11,7 @@ public class PlayerClass : Entity
     [SerializeField] public int mobCount;
     [SerializeField] public int attackUpgradeLevel = 1;
     [SerializeField] public int defenseUpgradeLevel = 1;
+    [SerializeField] public int hpUpgradeLevel = 1;
 
     //플레이어 스탯 매 판마다 초기화
     private int level;
@@ -85,13 +86,17 @@ public class PlayerClass : Entity
             money = 0;
         }
     }
-    public void AddAttack(float value)
+    public void AddAttack(int value)
     {
          bonusAtk += value;
     }
-    public void AddDefense(float value)
+    public void AddDefense(int value)
     {
         bonusDef += value;
+    }
+    public void AddHp(int value)
+    {
+        bonusHp += value;
     }
 
     public void GetExp(int amount)
