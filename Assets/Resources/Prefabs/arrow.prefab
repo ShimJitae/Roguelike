@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 1991651172744446164}
   - component: {fileID: 8055250580168944582}
   - component: {fileID: 7159154135608332279}
-  - component: {fileID: 6380127167099795626}
   - component: {fileID: 2755779904364598424}
+  - component: {fileID: 6380127167099795626}
   m_Layer: 0
   m_Name: arrow
   m_TagString: Untagged
@@ -140,6 +140,20 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 6.5, y: 1.36}
   m_EdgeRadius: 0
+--- !u!114 &2755779904364598424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8970336553575905948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8584dbe8f3a5e9f478a9274b45830e58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SFXPlayer
+  sfxType: 2
+  playOnAwake: 1
 --- !u!114 &6380127167099795626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,17 +170,3 @@ MonoBehaviour:
   player: {fileID: 0}
   arrowDamage: 0
   entity: {fileID: 0}
---- !u!114 &2755779904364598424
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8970336553575905948}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8584dbe8f3a5e9f478a9274b45830e58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SFXPlayer
-  sfxType: 2
-  playOnAwake: 1

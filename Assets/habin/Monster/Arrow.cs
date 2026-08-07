@@ -36,22 +36,6 @@ public class Arrow : MonoBehaviour
     void Start()
     {
         Init();
-        /*
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-        sp = GetComponent<SpriteRenderer>();
-        if (player.position.x < transform.position.x)
-        {
-            sp.flipX = false;
-        }
-        if (player.position.x > transform.position.x)
-        {
-            sp.flipX = true;
-        }
-
-        //생성후 destroytimer에 맞춰 사라짐
-        Destroy(gameObject, destroytimer);
-        */
-
     }
 
     private void Init()
@@ -79,13 +63,14 @@ public class Arrow : MonoBehaviour
 
         if (collision.CompareTag("Ground"))
         {
+            Debug.Log("벽!" + collision.name);
             Destroy(gameObject);
             return;
         }
-            
+
 
         Entity target = collision.GetComponent<Entity>();
-        if(target == null)
+        if (target == null)
         {
             Debug.Log("타겟이 없음");
             return;
