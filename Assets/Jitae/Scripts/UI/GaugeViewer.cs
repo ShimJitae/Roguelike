@@ -81,7 +81,7 @@ public class GaugeViewer : MonoBehaviour
         previousValue = maxValue;
     }
 
-    private void SetHPGauge(float newValue)
+    public void SetHPGauge(float newValue)
     {
         SetGauge(entity.Hp);
     }

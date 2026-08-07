@@ -82,10 +82,10 @@ public class Arrow : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-            
+
 
         Entity target = collision.GetComponent<Entity>();
-        if(target == null)
+        if (target == null)
         {
             Debug.Log("타겟이 없음");
             return;

@@ -58,6 +58,8 @@ public class FadeManager : MonoBehaviour
 
         IsFading = true;
 
+        SoundManager.Instance.StopBGM();
+
         fadeUI.gameObject.SetActive(true);
         fadeUI.ResetToTransparent();
 
