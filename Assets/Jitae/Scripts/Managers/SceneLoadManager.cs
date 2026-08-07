@@ -40,6 +40,7 @@ public class SceneLoadManager : MonoBehaviour
     {
         switch (sceneName)
         {
+            case "LobbyScene":
             case "DungeonScene": SoundManager.Instance.PlayBGM(BGMType.Normal); break;
             case "TitleScene": SoundManager.Instance.PlayBGM(BGMType.Title); break;
         }

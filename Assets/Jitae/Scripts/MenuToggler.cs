@@ -8,7 +8,7 @@ public class MenuToggler : MonoBehaviour
 
     private void Awake()
     {
-        menuCanvas = Instantiate(menuCanvasPrefab);
+        menuCanvas = Instantiate(menuCanvasPrefab, transform);
         menuCanvas.gameObject.SetActive(false);
     }
 
@@ -18,7 +18,7 @@ public class MenuToggler : MonoBehaviour
 
         menuUI.OnResume += () => menuCanvas.SetActive(false);
 
-        // menuUI.OnRestart += 게임 새로 시작하는 메서드
+        menuUI.OnRestart += () => SceneLoadManager.Instance.LoadScene(SceneType.LobbyScene);
 
         menuUI.OnGoTitle += () => SceneLoadManager.Instance.LoadScene(SceneType.TitleScene);
     }

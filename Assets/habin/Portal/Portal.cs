@@ -35,11 +35,15 @@ public class Portal : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if (playerClass.mobCount == 1)
+            if (playerClass.mobCount == 0)
+            {
+                SceneLoadManager.Instance.LoadScene("DungeonScene");
+            }
+            else if (playerClass.mobCount == 1)
             {
                 FadeManager.Instance.OnFadeOutComplete += () => bossMob.gameObject.SetActive(false);
-                playerClass.StatReset(); // ÇÃ·¹ÀÌ¾î ½ºÅÈ ÃÊ±âÈ­
-                SceneLoadManager.Instance.LoadScene("TitleScene");
+                playerClass.StatReset(); // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
+                SceneLoadManager.Instance.LoadScene("LobbyScene");
             }
             else
             {

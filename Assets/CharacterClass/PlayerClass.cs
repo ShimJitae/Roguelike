@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
+using UnityEngine.SceneManagement;
 
 public class PlayerClass : Entity
 {
@@ -23,13 +24,41 @@ public class PlayerClass : Entity
     [SerializeField] private int bonusAtk;
     [SerializeField] private int bonusDef;
 
+    static PlayerClass instance;
+    public static PlayerClass Instance => instance;
+
     protected override void Awake()
     {
         base.Awake();
 
         entityType = EntityType.Player;
-        
-        
+
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
+    void OnEnable()
+    {
+        // 씬 매니저의 sceneLoaded에 체인을 건다.
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    // 체인을 걸어서 이 함수는 매 씬마다 호출된다.
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Transform startPoint = GameObject.FindWithTag("StartPoint").transform;
+        transform.position = startPoint.position;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     private void Start()
